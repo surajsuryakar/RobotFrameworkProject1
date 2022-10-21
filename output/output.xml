@@ -1,0 +1,2037 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 3.2.1 (Python 3.7.5 on win32)" generated="20200727 09:30:38.756" rpa="true">
+<suite id="s1" name="Tasks" source="C:\Personal Data\Robot Framework\workspace\Robot Framework Template Project\tasks">
+<suite id="s1-s1" name="Robot" source="C:\Personal Data\Robot Framework\workspace\Robot Framework Template Project\tasks\robot.robot">
+<test id="s1-s1-t1" name="Read data from Excel and add them to WorkQueue">
+<kw name="Read Excel Data" library="keywords">
+<assign>
+<var>${WorkItems}</var>
+</assign>
+<kw name="Set Up And Validate" library="keywords">
+<kw name="File Should Exist" library="OperatingSystem">
+<doc>Fails unless the given ``path`` points to an existing file.</doc>
+<arguments>
+<arg>${EXCEL_FILE_PATH}</arg>
+</arguments>
+<msg timestamp="20200727 09:30:39.616" level="INFO" html="yes">File '&lt;a href="file://C:\Personal Data\Robot Framework\workspace\Robot Framework Template Project\input\Data.xlsx"&gt;C:\Personal Data\Robot Framework\workspace\Robot Framework Template Project\input\Data.xlsx&lt;/a&gt;' exists.</msg>
+<status status="PASS" starttime="20200727 09:30:39.615" endtime="20200727 09:30:39.616"></status>
+</kw>
+<kw name="File Should Exist" library="OperatingSystem">
+<doc>Fails unless the given ``path`` points to an existing file.</doc>
+<arguments>
+<arg>${PDF_TEMPLATE_PATH}</arg>
+</arguments>
+<msg timestamp="20200727 09:30:39.616" level="INFO" html="yes">File '&lt;a href="file://C:\Personal Data\Robot Framework\workspace\Robot Framework Template Project\input\invite.template"&gt;C:\Personal Data\Robot Framework\workspace\Robot Framework Template Project\input\invite.template&lt;/a&gt;' exists.</msg>
+<status status="PASS" starttime="20200727 09:30:39.616" endtime="20200727 09:30:39.616"></status>
+</kw>
+<kw name="Create Directory" library="OperatingSystem">
+<doc>Creates the specified directory.</doc>
+<arguments>
+<arg>${PDF_TEMP_OUTPUT_DIRECTORY}</arg>
+</arguments>
+<msg timestamp="20200727 09:30:39.617" level="INFO" html="yes">Created directory '&lt;a href="file://C:\Personal Data\Robot Framework\workspace\Robot Framework Template Project\output\pdf"&gt;C:\Personal Data\Robot Framework\workspace\Robot Framework Template Project\output\pdf&lt;/a&gt;'.</msg>
+<status status="PASS" starttime="20200727 09:30:39.616" endtime="20200727 09:30:39.617"></status>
+</kw>
+<status status="PASS" starttime="20200727 09:30:39.615" endtime="20200727 09:30:39.617"></status>
+</kw>
+<kw name="Open Workbook" library="RPA.Excel.Files">
+<doc>Open an existing Excel workbook.</doc>
+<arguments>
+<arg>${EXCEL_FILE_PATH}</arg>
+</arguments>
+<msg timestamp="20200727 09:30:39.625" level="INFO">Opened workbook: &lt;RPA.Excel.Files.XlsxWorkbook object at 0x000001E27A891888&gt;</msg>
+<status status="PASS" starttime="20200727 09:30:39.618" endtime="20200727 09:30:39.625"></status>
+</kw>
+<kw name="Read Worksheet" library="RPA.Excel.Files">
+<doc>Read the content of a worksheet into a list of dictionaries.</doc>
+<arguments>
+<arg>header=${TRUE}</arg>
+</arguments>
+<assign>
+<var>${WorkItems}</var>
+</assign>
+<msg timestamp="20200727 09:30:39.626" level="INFO">${WorkItems} = [{'first_name': 'Reynard', 'last_name': 'Mouse', 'address': '4 Service Center', 'city': 'Toronto', 'date': '2019/07/03', 'time': '10:00 PM'}, {'first_name': 'Elisabeth', 'last_name': '#@$%@$%^', 'addr...</msg>
+<status status="PASS" starttime="20200727 09:30:39.625" endtime="20200727 09:30:39.626"></status>
+</kw>
+<kw name="Close Workbook" library="RPA.Excel.Files">
+<doc>Close the active workbook.</doc>
+<msg timestamp="20200727 09:30:39.626" level="INFO">Closing workbook: &lt;RPA.Excel.Files.XlsxWorkbook object at 0x000001E27A891888&gt;</msg>
+<status status="PASS" starttime="20200727 09:30:39.626" endtime="20200727 09:30:39.626"></status>
+</kw>
+<kw name="Pause Execution" library="Dialogs">
+<doc>Pauses test execution until user clicks ``Ok`` button.</doc>
+<arguments>
+<arg>Execution paused after Excel reading. Press OK to continue.</arg>
+</arguments>
+<status status="PASS" starttime="20200727 09:30:39.626" endtime="20200727 09:30:41.761"></status>
+</kw>
+<msg timestamp="20200727 09:30:41.761" level="INFO">${WorkItems} = [{'first_name': 'Reynard', 'last_name': 'Mouse', 'address': '4 Service Center', 'city': 'Toronto', 'date': '2019/07/03', 'time': '10:00 PM'}, {'first_name': 'Elisabeth', 'last_name': '#@$%@$%^', 'addr...</msg>
+<status status="PASS" starttime="20200727 09:30:39.615" endtime="20200727 09:30:41.762"></status>
+</kw>
+<kw name="Create Queue And Upload Work Items" library="keywords">
+<arguments>
+<arg>${QUEUE_NAME}</arg>
+<arg>${WorkItems}</arg>
+</arguments>
+<kw name="Upload Queue Items" library="QueueOperations">
+<arguments>
+<arg>${QueueName}</arg>
+<arg>${WorkItems}</arg>
+</arguments>
+<kw name="Load Work Item From Environment" library="RPA.Robocloud.Items">
+<doc>Load current work item defined by the runtime environment.</doc>
+<status status="PASS" starttime="20200727 09:30:41.763" endtime="20200727 09:30:41.764"></status>
+</kw>
+<kw name="Set Work Item Variables" library="RPA.Robocloud.Items">
+<doc>Set multiple variables in the current work item.</doc>
+<arguments>
+<arg>${QueueName}=${WorkItems}</arg>
+</arguments>
+<msg timestamp="20200727 09:30:41.765" level="INFO">INVITATIONS = [{'first_name': 'Reynard', 'last_name': 'Mouse', 'address': '4 Service Center', 'city': 'Toronto', 'date': '2019/07/03', 'time': '10:00 PM'}, {'first_name': 'Elisabeth', 'last_name': '#@$%@$%^', 'address': '197 Ronald Regan Drive', 'city': 'New York', 'date': '2019/05/03', 'time': '10:20 PM'}, {'first_name': 'Cyril', 'last_name': 'Blundon', 'address': '3554 Chive Circle', 'city': 'San Francisco', 'date': '2019/05/10', 'time': '1:33 PM'}, {'first_name': 'Vincenz', 'last_name': 'Paolazzi', 'address': '20533 6th Crossing', 'city': 'Milan', 'date': '2019/12/14', 'time': '6:58 AM'}, {'first_name': 'Jeannie', 'last_name': 'Charge', 'address': '9 Michigan Street', 'city': 'Kansas City', 'date': '2020/02/12', 'time': '4:27 AM'}, {'first_name': 'Alexio', 'last_name': 'Hellis', 'address': '8 Grim Trail', 'city': 'Lahore', 'date': '2019/05/05', 'time': '5:04 PM'}, {'first_name': 'Luca', 'last_name': 'Viel', 'address': '91764 Reindahl Park', 'city': 'New Dehli', 'date': '2019/12/17', 'time': '8:37 AM'}, {'first_name': 'Sly', 'last_name': 'Lammerts', 'address': '8077 Pennsylvania Drive', 'city': 'Helsinki', 'date': '2020/02/09', 'time': '11:23 PM'}, {'first_name': None, 'last_name': None, 'address': '3619 Oxford Place', 'city': 'Stockholm', 'date': '2019/10/30', 'time': '1:15 PM'}, {'first_name': 'Maridel', 'last_name': 'Sneezum', 'address': '4 Cambridge Center', 'city': 'London', 'date': '2020/03/26', 'time': '11:24 AM'}]</msg>
+<status status="PASS" starttime="20200727 09:30:41.764" endtime="20200727 09:30:41.765"></status>
+</kw>
+<kw name="Save Work Item" library="RPA.Robocloud.Items">
+<doc>Save the current data in the work item. If not saved,
+all changes are discarded when the library goes out of scope.</doc>
+<status status="PASS" starttime="20200727 09:30:41.765" endtime="20200727 09:30:41.767"></status>
+</kw>
+<kw name="Add Common Fields" library="QueueOperations">
+<arguments>
+<arg>${QueueName}</arg>
+</arguments>
+<kw name="Load Work Item From Environment" library="RPA.Robocloud.Items">
+<doc>Load current work item defined by the runtime environment.</doc>
+<status status="PASS" starttime="20200727 09:30:41.768" endtime="20200727 09:30:41.769"></status>
+</kw>
+<kw name="Get Work Item Variable" library="RPA.Robocloud.Items">
+<doc>Return a single variable value from the work item,
+or default value if defined and key does not exist.
+If key does not exist and default is not defined, raises `KeyError`.</doc>
+<arguments>
+<arg>${QueueName}</arg>
+</arguments>
+<assign>
+<var>${WorkItems}</var>
+</assign>
+<msg timestamp="20200727 09:30:41.770" level="INFO">${WorkItems} = [{'first_name': 'Reynard', 'last_name': 'Mouse', 'address': '4 Service Center', 'city': 'Toronto', 'date': '2019/07/03', 'time': '10:00 PM'}, {'first_name': 'Elisabeth', 'last_name': '#@$%@$%^', 'addr...</msg>
+<status status="PASS" starttime="20200727 09:30:41.770" endtime="20200727 09:30:41.770"></status>
+</kw>
+<kw name="${WorkItem} IN [ @{WorkItems} ]" type="for">
+<kw name="${WorkItem} = {'first_name': 'Reynard', 'last_name': 'Mouse', 'address': '4 Service Center', 'city': 'Toronto', 'date': '2019/07/03', 'time': '10:00 PM'}" type="foritem">
+<kw name="Get Current Date" library="DateTime">
+<doc>Returns current local or UTC time with an optional increment.</doc>
+<arguments>
+<arg>UTC</arg>
+<arg>exclude_millis=yes</arg>
+</arguments>
+<assign>
+<var>${date}</var>
+</assign>
+<msg timestamp="20200727 09:30:41.771" level="INFO">${date} = 2020-07-27 04:00:42</msg>
+<status status="PASS" starttime="20200727 09:30:41.771" endtime="20200727 09:30:41.771"></status>
+</kw>
+<kw name="Set To Dictionary" library="Collections">
+<doc>Adds the given ``key_value_pairs`` and ``items`` to the ``dictionary``.</doc>
+<arguments>
+<arg>${WorkItem}</arg>
+<arg>${STATUS_Q_FIELD}</arg>
+<arg>${Q_STATUS_OPEN}</arg>
+</arguments>
+<status status="PASS" starttime="20200727 09:30:41.771" endtime="20200727 09:30:41.771"></status>
+</kw>
+<kw name="Set To Dictionary" library="Collections">
+<doc>Adds the given ``key_value_pairs`` and ``items`` to the ``dictionary``.</doc>
+<arguments>
+<arg>${WorkItem}</arg>
+<arg>${ITEMID_Q_FIELD}</arg>
+<arg>${WorkItem["first_name"]}_${WorkItem["last_name"]}</arg>
+</arguments>
+<status status="PASS" starttime="20200727 09:30:41.771" endtime="20200727 09:30:41.772"></status>
+</kw>
+<kw name="Set To Dictionary" library="Collections">
+<doc>Adds the given ``key_value_pairs`` and ``items`` to the ``dictionary``.</doc>
+<arguments>
+<arg>${WorkItem}</arg>
+<arg>${CREATED_Q_FIELD}</arg>
+<arg>${date}</arg>
+</arguments>
+<status status="PASS" starttime="20200727 09:30:41.772" endtime="20200727 09:30:41.772"></status>
+</kw>
+<kw name="Set To Dictionary" library="Collections">
+<doc>Adds the given ``key_value_pairs`` and ``items`` to the ``dictionary``.</doc>
+<arguments>
+<arg>${WorkItem}</arg>
+<arg>${LASTUPDATED_Q_FIELD}</arg>
+<arg>${date}</arg>
+</arguments>
+<status status="PASS" starttime="20200727 09:30:41.772" endtime="20200727 09:30:41.773"></status>
+</kw>
+<kw name="Set To Dictionary" library="Collections">
+<doc>Adds the given ``key_value_pairs`` and ``items`` to the ``dictionary``.</doc>
+<arguments>
+<arg>${WorkItem}</arg>
+<arg>${EXCEPTIONREASON_Q_FIELD}</arg>
+<arg>''</arg>
+</arguments>
+<status status="PASS" starttime="20200727 09:30:41.773" endtime="20200727 09:30:41.773"></status>
+</kw>
+<kw name="Save Work Item" library="RPA.Robocloud.Items">
+<doc>Save the current data in the work item. If not saved,
+all changes are discarded when the library goes out of scope.</doc>
+<status status="PASS" starttime="20200727 09:30:41.773" endtime="20200727 09:30:41.774"></status>
+</kw>
+<status status="PASS" starttime="20200727 09:30:41.770" endtime="20200727 09:30:41.774"></status>
+</kw>
+<kw name="${WorkItem} = {'first_name': 'Elisabeth', 'last_name': '#@$%@$%^', 'address': '197 Ronald Regan Drive', 'city': 'New York', 'date': '2019/05/03', 'time': '10:20 PM'}" type="foritem">
+<kw name="Get Current Date" library="DateTime">
+<doc>Returns current local or UTC time with an optional increment.</doc>
+<arguments>
+<arg>UTC</arg>
+<arg>exclude_millis=yes</arg>
+</arguments>
+<assign>
+<var>${date}</var>
+</assign>
+<msg timestamp="20200727 09:30:41.775" level="INFO">${date} = 2020-07-27 04:00:42</msg>
+<status status="PASS" starttime="20200727 09:30:41.774" endtime="20200727 09:30:41.775"></status>
+</kw>
+<kw name="Set To Dictionary" library="Collections">
+<doc>Adds the given ``key_value_pairs`` and ``items`` to the ``dictionary``.</doc>
+<arguments>
+<arg>${WorkItem}</arg>
+<arg>${STATUS_Q_FIELD}</arg>
+<arg>${Q_STATUS_OPEN}</arg>
+</arguments>
+<status status="PASS" starttime="20200727 09:30:41.775" endtime="20200727 09:30:41.775"></status>
+</kw>
+<kw name="Set To Dictionary" library="Collections">
+<doc>Adds the given ``key_value_pairs`` and ``items`` to the ``dictionary``.</doc>
+<arguments>
+<arg>${WorkItem}</arg>
+<arg>${ITEMID_Q_FIELD}</arg>
+<arg>${WorkItem["first_name"]}_${WorkItem["last_name"]}</arg>
+</arguments>
+<status status="PASS" starttime="20200727 09:30:41.775" endtime="20200727 09:30:41.776"></status>
+</kw>
+<kw name="Set To Dictionary" library="Collections">
+<doc>Adds the given ``key_value_pairs`` and ``items`` to the ``dictionary``.</doc>
+<arguments>
+<arg>${WorkItem}</arg>
+<arg>${CREATED_Q_FIELD}</arg>
+<arg>${date}</arg>
+</arguments>
+<status status="PASS" starttime="20200727 09:30:41.776" endtime="20200727 09:30:41.776"></status>
+</kw>
+<kw name="Set To Dictionary" library="Collections">
+<doc>Adds the given ``key_value_pairs`` and ``items`` to the ``dictionary``.</doc>
+<arguments>
+<arg>${WorkItem}</arg>
+<arg>${LASTUPDATED_Q_FIELD}</arg>
+<arg>${date}</arg>
+</arguments>
+<status status="PASS" starttime="20200727 09:30:41.776" endtime="20200727 09:30:41.777"></status>
+</kw>
+<kw name="Set To Dictionary" library="Collections">
+<doc>Adds the given ``key_value_pairs`` and ``items`` to the ``dictionary``.</doc>
+<arguments>
+<arg>${WorkItem}</arg>
+<arg>${EXCEPTIONREASON_Q_FIELD}</arg>
+<arg>''</arg>
+</arguments>
+<status status="PASS" starttime="20200727 09:30:41.777" endtime="20200727 09:30:41.777"></status>
+</kw>
+<kw name="Save Work Item" library="RPA.Robocloud.Items">
+<doc>Save the current data in the work item. If not saved,
+all changes are discarded when the library goes out of scope.</doc>
+<status status="PASS" starttime="20200727 09:30:41.777" endtime="20200727 09:30:41.782"></status>
+</kw>
+<status status="PASS" starttime="20200727 09:30:41.774" endtime="20200727 09:30:41.782"></status>
+</kw>
+<kw name="${WorkItem} = {'first_name': 'Cyril', 'last_name': 'Blundon', 'address': '3554 Chive Circle', 'city': 'San Francisco', 'date': '2019/05/10', 'time': '1:33 PM'}" type="foritem">
+<kw name="Get Current Date" library="DateTime">
+<doc>Returns current local or UTC time with an optional increment.</doc>
+<arguments>
+<arg>UTC</arg>
+<arg>exclude_millis=yes</arg>
+</arguments>
+<assign>
+<var>${date}</var>
+</assign>
+<msg timestamp="20200727 09:30:41.783" level="INFO">${date} = 2020-07-27 04:00:42</msg>
+<status status="PASS" starttime="20200727 09:30:41.783" endtime="20200727 09:30:41.783"></status>
+</kw>
+<kw name="Set To Dictionary" library="Collections">
+<doc>Adds the given ``key_value_pairs`` and ``items`` to the ``dictionary``.</doc>
+<arguments>
+<arg>${WorkItem}</arg>
+<arg>${STATUS_Q_FIELD}</arg>
+<arg>${Q_STATUS_OPEN}</arg>
+</arguments>
+<status status="PASS" starttime="20200727 09:30:41.784" endtime="20200727 09:30:41.784"></status>
+</kw>
+<kw name="Set To Dictionary" library="Collections">
+<doc>Adds the given ``key_value_pairs`` and ``items`` to the ``dictionary``.</doc>
+<arguments>
+<arg>${WorkItem}</arg>
+<arg>${ITEMID_Q_FIELD}</arg>
+<arg>${WorkItem["first_name"]}_${WorkItem["last_name"]}</arg>
+</arguments>
+<status status="PASS" starttime="20200727 09:30:41.784" endtime="20200727 09:30:41.784"></status>
+</kw>
+<kw name="Set To Dictionary" library="Collections">
+<doc>Adds the given ``key_value_pairs`` and ``items`` to the ``dictionary``.</doc>
+<arguments>
+<arg>${WorkItem}</arg>
+<arg>${CREATED_Q_FIELD}</arg>
+<arg>${date}</arg>
+</arguments>
+<status status="PASS" starttime="20200727 09:30:41.785" endtime="20200727 09:30:41.785"></status>
+</kw>
+<kw name="Set To Dictionary" library="Collections">
+<doc>Adds the given ``key_value_pairs`` and ``items`` to the ``dictionary``.</doc>
+<arguments>
+<arg>${WorkItem}</arg>
+<arg>${LASTUPDATED_Q_FIELD}</arg>
+<arg>${date}</arg>
+</arguments>
+<status status="PASS" starttime="20200727 09:30:41.785" endtime="20200727 09:30:41.785"></status>
+</kw>
+<kw name="Set To Dictionary" library="Collections">
+<doc>Adds the given ``key_value_pairs`` and ``items`` to the ``dictionary``.</doc>
+<arguments>
+<arg>${WorkItem}</arg>
+<arg>${EXCEPTIONREASON_Q_FIELD}</arg>
+<arg>''</arg>
+</arguments>
+<status status="PASS" starttime="20200727 09:30:41.785" endtime="20200727 09:30:41.785"></status>
+</kw>
+<kw name="Save Work Item" library="RPA.Robocloud.Items">
+<doc>Save the current data in the work item. If not saved,
+all changes are discarded when the library goes out of scope.</doc>
+<status status="PASS" starttime="20200727 09:30:41.786" endtime="20200727 09:30:41.791"></status>
+</kw>
+<status status="PASS" starttime="20200727 09:30:41.783" endtime="20200727 09:30:41.791"></status>
+</kw>
+<kw name="${WorkItem} = {'first_name': 'Vincenz', 'last_name': 'Paolazzi', 'address': '20533 6th Crossing', 'city': 'Milan', 'date': '2019/12/14', 'time': '6:58 AM'}" type="foritem">
+<kw name="Get Current Date" library="DateTime">
+<doc>Returns current local or UTC time with an optional increment.</doc>
+<arguments>
+<arg>UTC</arg>
+<arg>exclude_millis=yes</arg>
+</arguments>
+<assign>
+<var>${date}</var>
+</assign>
+<msg timestamp="20200727 09:30:41.792" level="INFO">${date} = 2020-07-27 04:00:42</msg>
+<status status="PASS" starttime="20200727 09:30:41.792" endtime="20200727 09:30:41.792"></status>
+</kw>
+<kw name="Set To Dictionary" library="Collections">
+<doc>Adds the given ``key_value_pairs`` and ``items`` to the ``dictionary``.</doc>
+<arguments>
+<arg>${WorkItem}</arg>
+<arg>${STATUS_Q_FIELD}</arg>
+<arg>${Q_STATUS_OPEN}</arg>
+</arguments>
+<status status="PASS" starttime="20200727 09:30:41.792" endtime="20200727 09:30:41.792"></status>
+</kw>
+<kw name="Set To Dictionary" library="Collections">
+<doc>Adds the given ``key_value_pairs`` and ``items`` to the ``dictionary``.</doc>
+<arguments>
+<arg>${WorkItem}</arg>
+<arg>${ITEMID_Q_FIELD}</arg>
+<arg>${WorkItem["first_name"]}_${WorkItem["last_name"]}</arg>
+</arguments>
+<status status="PASS" starttime="20200727 09:30:41.793" endtime="20200727 09:30:41.793"></status>
+</kw>
+<kw name="Set To Dictionary" library="Collections">
+<doc>Adds the given ``key_value_pairs`` and ``items`` to the ``dictionary``.</doc>
+<arguments>
+<arg>${WorkItem}</arg>
+<arg>${CREATED_Q_FIELD}</arg>
+<arg>${date}</arg>
+</arguments>
+<status status="PASS" starttime="20200727 09:30:41.793" endtime="20200727 09:30:41.793"></status>
+</kw>
+<kw name="Set To Dictionary" library="Collections">
+<doc>Adds the given ``key_value_pairs`` and ``items`` to the ``dictionary``.</doc>
+<arguments>
+<arg>${WorkItem}</arg>
+<arg>${LASTUPDATED_Q_FIELD}</arg>
+<arg>${date}</arg>
+</arguments>
+<status status="PASS" starttime="20200727 09:30:41.793" endtime="20200727 09:30:41.794"></status>
+</kw>
+<kw name="Set To Dictionary" library="Collections">
+<doc>Adds the given ``key_value_pairs`` and ``items`` to the ``dictionary``.</doc>
+<arguments>
+<arg>${WorkItem}</arg>
+<arg>${EXCEPTIONREASON_Q_FIELD}</arg>
+<arg>''</arg>
+</arguments>
+<status status="PASS" starttime="20200727 09:30:41.794" endtime="20200727 09:30:41.794"></status>
+</kw>
+<kw name="Save Work Item" library="RPA.Robocloud.Items">
+<doc>Save the current data in the work item. If not saved,
+all changes are discarded when the library goes out of scope.</doc>
+<status status="PASS" starttime="20200727 09:30:41.794" endtime="20200727 09:30:41.799"></status>
+</kw>
+<status status="PASS" starttime="20200727 09:30:41.792" endtime="20200727 09:30:41.799"></status>
+</kw>
+<kw name="${WorkItem} = {'first_name': 'Jeannie', 'last_name': 'Charge', 'address': '9 Michigan Street', 'city': 'Kansas City', 'date': '2020/02/12', 'time': '4:27 AM'}" type="foritem">
+<kw name="Get Current Date" library="DateTime">
+<doc>Returns current local or UTC time with an optional increment.</doc>
+<arguments>
+<arg>UTC</arg>
+<arg>exclude_millis=yes</arg>
+</arguments>
+<assign>
+<var>${date}</var>
+</assign>
+<msg timestamp="20200727 09:30:41.800" level="INFO">${date} = 2020-07-27 04:00:42</msg>
+<status status="PASS" starttime="20200727 09:30:41.800" endtime="20200727 09:30:41.800"></status>
+</kw>
+<kw name="Set To Dictionary" library="Collections">
+<doc>Adds the given ``key_value_pairs`` and ``items`` to the ``dictionary``.</doc>
+<arguments>
+<arg>${WorkItem}</arg>
+<arg>${STATUS_Q_FIELD}</arg>
+<arg>${Q_STATUS_OPEN}</arg>
+</arguments>
+<status status="PASS" starttime="20200727 09:30:41.800" endtime="20200727 09:30:41.801"></status>
+</kw>
+<kw name="Set To Dictionary" library="Collections">
+<doc>Adds the given ``key_value_pairs`` and ``items`` to the ``dictionary``.</doc>
+<arguments>
+<arg>${WorkItem}</arg>
+<arg>${ITEMID_Q_FIELD}</arg>
+<arg>${WorkItem["first_name"]}_${WorkItem["last_name"]}</arg>
+</arguments>
+<status status="PASS" starttime="20200727 09:30:41.801" endtime="20200727 09:30:41.801"></status>
+</kw>
+<kw name="Set To Dictionary" library="Collections">
+<doc>Adds the given ``key_value_pairs`` and ``items`` to the ``dictionary``.</doc>
+<arguments>
+<arg>${WorkItem}</arg>
+<arg>${CREATED_Q_FIELD}</arg>
+<arg>${date}</arg>
+</arguments>
+<status status="PASS" starttime="20200727 09:30:41.801" endtime="20200727 09:30:41.802"></status>
+</kw>
+<kw name="Set To Dictionary" library="Collections">
+<doc>Adds the given ``key_value_pairs`` and ``items`` to the ``dictionary``.</doc>
+<arguments>
+<arg>${WorkItem}</arg>
+<arg>${LASTUPDATED_Q_FIELD}</arg>
+<arg>${date}</arg>
+</arguments>
+<status status="PASS" starttime="20200727 09:30:41.802" endtime="20200727 09:30:41.802"></status>
+</kw>
+<kw name="Set To Dictionary" library="Collections">
+<doc>Adds the given ``key_value_pairs`` and ``items`` to the ``dictionary``.</doc>
+<arguments>
+<arg>${WorkItem}</arg>
+<arg>${EXCEPTIONREASON_Q_FIELD}</arg>
+<arg>''</arg>
+</arguments>
+<status status="PASS" starttime="20200727 09:30:41.802" endtime="20200727 09:30:41.802"></status>
+</kw>
+<kw name="Save Work Item" library="RPA.Robocloud.Items">
+<doc>Save the current data in the work item. If not saved,
+all changes are discarded when the library goes out of scope.</doc>
+<status status="PASS" starttime="20200727 09:30:41.802" endtime="20200727 09:30:41.808"></status>
+</kw>
+<status status="PASS" starttime="20200727 09:30:41.799" endtime="20200727 09:30:41.808"></status>
+</kw>
+<kw name="${WorkItem} = {'first_name': 'Alexio', 'last_name': 'Hellis', 'address': '8 Grim Trail', 'city': 'Lahore', 'date': '2019/05/05', 'time': '5:04 PM'}" type="foritem">
+<kw name="Get Current Date" library="DateTime">
+<doc>Returns current local or UTC time with an optional increment.</doc>
+<arguments>
+<arg>UTC</arg>
+<arg>exclude_millis=yes</arg>
+</arguments>
+<assign>
+<var>${date}</var>
+</assign>
+<msg timestamp="20200727 09:30:41.809" level="INFO">${date} = 2020-07-27 04:00:42</msg>
+<status status="PASS" starttime="20200727 09:30:41.808" endtime="20200727 09:30:41.809"></status>
+</kw>
+<kw name="Set To Dictionary" library="Collections">
+<doc>Adds the given ``key_value_pairs`` and ``items`` to the ``dictionary``.</doc>
+<arguments>
+<arg>${WorkItem}</arg>
+<arg>${STATUS_Q_FIELD}</arg>
+<arg>${Q_STATUS_OPEN}</arg>
+</arguments>
+<status status="PASS" starttime="20200727 09:30:41.809" endtime="20200727 09:30:41.809"></status>
+</kw>
+<kw name="Set To Dictionary" library="Collections">
+<doc>Adds the given ``key_value_pairs`` and ``items`` to the ``dictionary``.</doc>
+<arguments>
+<arg>${WorkItem}</arg>
+<arg>${ITEMID_Q_FIELD}</arg>
+<arg>${WorkItem["first_name"]}_${WorkItem["last_name"]}</arg>
+</arguments>
+<status status="PASS" starttime="20200727 09:30:41.809" endtime="20200727 09:30:41.809"></status>
+</kw>
+<kw name="Set To Dictionary" library="Collections">
+<doc>Adds the given ``key_value_pairs`` and ``items`` to the ``dictionary``.</doc>
+<arguments>
+<arg>${WorkItem}</arg>
+<arg>${CREATED_Q_FIELD}</arg>
+<arg>${date}</arg>
+</arguments>
+<status status="PASS" starttime="20200727 09:30:41.810" endtime="20200727 09:30:41.810"></status>
+</kw>
+<kw name="Set To Dictionary" library="Collections">
+<doc>Adds the given ``key_value_pairs`` and ``items`` to the ``dictionary``.</doc>
+<arguments>
+<arg>${WorkItem}</arg>
+<arg>${LASTUPDATED_Q_FIELD}</arg>
+<arg>${date}</arg>
+</arguments>
+<status status="PASS" starttime="20200727 09:30:41.810" endtime="20200727 09:30:41.810"></status>
+</kw>
+<kw name="Set To Dictionary" library="Collections">
+<doc>Adds the given ``key_value_pairs`` and ``items`` to the ``dictionary``.</doc>
+<arguments>
+<arg>${WorkItem}</arg>
+<arg>${EXCEPTIONREASON_Q_FIELD}</arg>
+<arg>''</arg>
+</arguments>
+<status status="PASS" starttime="20200727 09:30:41.810" endtime="20200727 09:30:41.811"></status>
+</kw>
+<kw name="Save Work Item" library="RPA.Robocloud.Items">
+<doc>Save the current data in the work item. If not saved,
+all changes are discarded when the library goes out of scope.</doc>
+<status status="PASS" starttime="20200727 09:30:41.811" endtime="20200727 09:30:41.816"></status>
+</kw>
+<status status="PASS" starttime="20200727 09:30:41.808" endtime="20200727 09:30:41.816"></status>
+</kw>
+<kw name="${WorkItem} = {'first_name': 'Luca', 'last_name': 'Viel', 'address': '91764 Reindahl Park', 'city': 'New Dehli', 'date': '2019/12/17', 'time': '8:37 AM'}" type="foritem">
+<kw name="Get Current Date" library="DateTime">
+<doc>Returns current local or UTC time with an optional increment.</doc>
+<arguments>
+<arg>UTC</arg>
+<arg>exclude_millis=yes</arg>
+</arguments>
+<assign>
+<var>${date}</var>
+</assign>
+<msg timestamp="20200727 09:30:41.818" level="INFO">${date} = 2020-07-27 04:00:42</msg>
+<status status="PASS" starttime="20200727 09:30:41.817" endtime="20200727 09:30:41.818"></status>
+</kw>
+<kw name="Set To Dictionary" library="Collections">
+<doc>Adds the given ``key_value_pairs`` and ``items`` to the ``dictionary``.</doc>
+<arguments>
+<arg>${WorkItem}</arg>
+<arg>${STATUS_Q_FIELD}</arg>
+<arg>${Q_STATUS_OPEN}</arg>
+</arguments>
+<status status="PASS" starttime="20200727 09:30:41.818" endtime="20200727 09:30:41.818"></status>
+</kw>
+<kw name="Set To Dictionary" library="Collections">
+<doc>Adds the given ``key_value_pairs`` and ``items`` to the ``dictionary``.</doc>
+<arguments>
+<arg>${WorkItem}</arg>
+<arg>${ITEMID_Q_FIELD}</arg>
+<arg>${WorkItem["first_name"]}_${WorkItem["last_name"]}</arg>
+</arguments>
+<status status="PASS" starttime="20200727 09:30:41.818" endtime="20200727 09:30:41.819"></status>
+</kw>
+<kw name="Set To Dictionary" library="Collections">
+<doc>Adds the given ``key_value_pairs`` and ``items`` to the ``dictionary``.</doc>
+<arguments>
+<arg>${WorkItem}</arg>
+<arg>${CREATED_Q_FIELD}</arg>
+<arg>${date}</arg>
+</arguments>
+<status status="PASS" starttime="20200727 09:30:41.819" endtime="20200727 09:30:41.819"></status>
+</kw>
+<kw name="Set To Dictionary" library="Collections">
+<doc>Adds the given ``key_value_pairs`` and ``items`` to the ``dictionary``.</doc>
+<arguments>
+<arg>${WorkItem}</arg>
+<arg>${LASTUPDATED_Q_FIELD}</arg>
+<arg>${date}</arg>
+</arguments>
+<status status="PASS" starttime="20200727 09:30:41.819" endtime="20200727 09:30:41.819"></status>
+</kw>
+<kw name="Set To Dictionary" library="Collections">
+<doc>Adds the given ``key_value_pairs`` and ``items`` to the ``dictionary``.</doc>
+<arguments>
+<arg>${WorkItem}</arg>
+<arg>${EXCEPTIONREASON_Q_FIELD}</arg>
+<arg>''</arg>
+</arguments>
+<status status="PASS" starttime="20200727 09:30:41.820" endtime="20200727 09:30:41.820"></status>
+</kw>
+<kw name="Save Work Item" library="RPA.Robocloud.Items">
+<doc>Save the current data in the work item. If not saved,
+all changes are discarded when the library goes out of scope.</doc>
+<status status="PASS" starttime="20200727 09:30:41.820" endtime="20200727 09:30:41.825"></status>
+</kw>
+<status status="PASS" starttime="20200727 09:30:41.817" endtime="20200727 09:30:41.825"></status>
+</kw>
+<kw name="${WorkItem} = {'first_name': 'Sly', 'last_name': 'Lammerts', 'address': '8077 Pennsylvania Drive', 'city': 'Helsinki', 'date': '2020/02/09', 'time': '11:23 PM'}" type="foritem">
+<kw name="Get Current Date" library="DateTime">
+<doc>Returns current local or UTC time with an optional increment.</doc>
+<arguments>
+<arg>UTC</arg>
+<arg>exclude_millis=yes</arg>
+</arguments>
+<assign>
+<var>${date}</var>
+</assign>
+<msg timestamp="20200727 09:30:41.826" level="INFO">${date} = 2020-07-27 04:00:42</msg>
+<status status="PASS" starttime="20200727 09:30:41.826" endtime="20200727 09:30:41.826"></status>
+</kw>
+<kw name="Set To Dictionary" library="Collections">
+<doc>Adds the given ``key_value_pairs`` and ``items`` to the ``dictionary``.</doc>
+<arguments>
+<arg>${WorkItem}</arg>
+<arg>${STATUS_Q_FIELD}</arg>
+<arg>${Q_STATUS_OPEN}</arg>
+</arguments>
+<status status="PASS" starttime="20200727 09:30:41.826" endtime="20200727 09:30:41.826"></status>
+</kw>
+<kw name="Set To Dictionary" library="Collections">
+<doc>Adds the given ``key_value_pairs`` and ``items`` to the ``dictionary``.</doc>
+<arguments>
+<arg>${WorkItem}</arg>
+<arg>${ITEMID_Q_FIELD}</arg>
+<arg>${WorkItem["first_name"]}_${WorkItem["last_name"]}</arg>
+</arguments>
+<status status="PASS" starttime="20200727 09:30:41.826" endtime="20200727 09:30:41.827"></status>
+</kw>
+<kw name="Set To Dictionary" library="Collections">
+<doc>Adds the given ``key_value_pairs`` and ``items`` to the ``dictionary``.</doc>
+<arguments>
+<arg>${WorkItem}</arg>
+<arg>${CREATED_Q_FIELD}</arg>
+<arg>${date}</arg>
+</arguments>
+<status status="PASS" starttime="20200727 09:30:41.827" endtime="20200727 09:30:41.827"></status>
+</kw>
+<kw name="Set To Dictionary" library="Collections">
+<doc>Adds the given ``key_value_pairs`` and ``items`` to the ``dictionary``.</doc>
+<arguments>
+<arg>${WorkItem}</arg>
+<arg>${LASTUPDATED_Q_FIELD}</arg>
+<arg>${date}</arg>
+</arguments>
+<status status="PASS" starttime="20200727 09:30:41.827" endtime="20200727 09:30:41.827"></status>
+</kw>
+<kw name="Set To Dictionary" library="Collections">
+<doc>Adds the given ``key_value_pairs`` and ``items`` to the ``dictionary``.</doc>
+<arguments>
+<arg>${WorkItem}</arg>
+<arg>${EXCEPTIONREASON_Q_FIELD}</arg>
+<arg>''</arg>
+</arguments>
+<status status="PASS" starttime="20200727 09:30:41.828" endtime="20200727 09:30:41.828"></status>
+</kw>
+<kw name="Save Work Item" library="RPA.Robocloud.Items">
+<doc>Save the current data in the work item. If not saved,
+all changes are discarded when the library goes out of scope.</doc>
+<status status="PASS" starttime="20200727 09:30:41.828" endtime="20200727 09:30:41.833"></status>
+</kw>
+<status status="PASS" starttime="20200727 09:30:41.825" endtime="20200727 09:30:41.833"></status>
+</kw>
+<kw name="${WorkItem} = {'first_name': None, 'last_name': None, 'address': '3619 Oxford Place', 'city': 'Stockholm', 'date': '2019/10/30', 'time': '1:15 PM'}" type="foritem">
+<kw name="Get Current Date" library="DateTime">
+<doc>Returns current local or UTC time with an optional increment.</doc>
+<arguments>
+<arg>UTC</arg>
+<arg>exclude_millis=yes</arg>
+</arguments>
+<assign>
+<var>${date}</var>
+</assign>
+<msg timestamp="20200727 09:30:41.834" level="INFO">${date} = 2020-07-27 04:00:42</msg>
+<status status="PASS" starttime="20200727 09:30:41.833" endtime="20200727 09:30:41.834"></status>
+</kw>
+<kw name="Set To Dictionary" library="Collections">
+<doc>Adds the given ``key_value_pairs`` and ``items`` to the ``dictionary``.</doc>
+<arguments>
+<arg>${WorkItem}</arg>
+<arg>${STATUS_Q_FIELD}</arg>
+<arg>${Q_STATUS_OPEN}</arg>
+</arguments>
+<status status="PASS" starttime="20200727 09:30:41.834" endtime="20200727 09:30:41.834"></status>
+</kw>
+<kw name="Set To Dictionary" library="Collections">
+<doc>Adds the given ``key_value_pairs`` and ``items`` to the ``dictionary``.</doc>
+<arguments>
+<arg>${WorkItem}</arg>
+<arg>${ITEMID_Q_FIELD}</arg>
+<arg>${WorkItem["first_name"]}_${WorkItem["last_name"]}</arg>
+</arguments>
+<status status="PASS" starttime="20200727 09:30:41.834" endtime="20200727 09:30:41.835"></status>
+</kw>
+<kw name="Set To Dictionary" library="Collections">
+<doc>Adds the given ``key_value_pairs`` and ``items`` to the ``dictionary``.</doc>
+<arguments>
+<arg>${WorkItem}</arg>
+<arg>${CREATED_Q_FIELD}</arg>
+<arg>${date}</arg>
+</arguments>
+<status status="PASS" starttime="20200727 09:30:41.835" endtime="20200727 09:30:41.835"></status>
+</kw>
+<kw name="Set To Dictionary" library="Collections">
+<doc>Adds the given ``key_value_pairs`` and ``items`` to the ``dictionary``.</doc>
+<arguments>
+<arg>${WorkItem}</arg>
+<arg>${LASTUPDATED_Q_FIELD}</arg>
+<arg>${date}</arg>
+</arguments>
+<status status="PASS" starttime="20200727 09:30:41.835" endtime="20200727 09:30:41.835"></status>
+</kw>
+<kw name="Set To Dictionary" library="Collections">
+<doc>Adds the given ``key_value_pairs`` and ``items`` to the ``dictionary``.</doc>
+<arguments>
+<arg>${WorkItem}</arg>
+<arg>${EXCEPTIONREASON_Q_FIELD}</arg>
+<arg>''</arg>
+</arguments>
+<status status="PASS" starttime="20200727 09:30:41.836" endtime="20200727 09:30:41.836"></status>
+</kw>
+<kw name="Save Work Item" library="RPA.Robocloud.Items">
+<doc>Save the current data in the work item. If not saved,
+all changes are discarded when the library goes out of scope.</doc>
+<status status="PASS" starttime="20200727 09:30:41.836" endtime="20200727 09:30:41.842"></status>
+</kw>
+<status status="PASS" starttime="20200727 09:30:41.833" endtime="20200727 09:30:41.842"></status>
+</kw>
+<kw name="${WorkItem} = {'first_name': 'Maridel', 'last_name': 'Sneezum', 'address': '4 Cambridge Center', 'city': 'London', 'date': '2020/03/26', 'time': '11:24 AM'}" type="foritem">
+<kw name="Get Current Date" library="DateTime">
+<doc>Returns current local or UTC time with an optional increment.</doc>
+<arguments>
+<arg>UTC</arg>
+<arg>exclude_millis=yes</arg>
+</arguments>
+<assign>
+<var>${date}</var>
+</assign>
+<msg timestamp="20200727 09:30:41.843" level="INFO">${date} = 2020-07-27 04:00:42</msg>
+<status status="PASS" starttime="20200727 09:30:41.843" endtime="20200727 09:30:41.843"></status>
+</kw>
+<kw name="Set To Dictionary" library="Collections">
+<doc>Adds the given ``key_value_pairs`` and ``items`` to the ``dictionary``.</doc>
+<arguments>
+<arg>${WorkItem}</arg>
+<arg>${STATUS_Q_FIELD}</arg>
+<arg>${Q_STATUS_OPEN}</arg>
+</arguments>
+<status status="PASS" starttime="20200727 09:30:41.844" endtime="20200727 09:30:41.844"></status>
+</kw>
+<kw name="Set To Dictionary" library="Collections">
+<doc>Adds the given ``key_value_pairs`` and ``items`` to the ``dictionary``.</doc>
+<arguments>
+<arg>${WorkItem}</arg>
+<arg>${ITEMID_Q_FIELD}</arg>
+<arg>${WorkItem["first_name"]}_${WorkItem["last_name"]}</arg>
+</arguments>
+<status status="PASS" starttime="20200727 09:30:41.844" endtime="20200727 09:30:41.845"></status>
+</kw>
+<kw name="Set To Dictionary" library="Collections">
+<doc>Adds the given ``key_value_pairs`` and ``items`` to the ``dictionary``.</doc>
+<arguments>
+<arg>${WorkItem}</arg>
+<arg>${CREATED_Q_FIELD}</arg>
+<arg>${date}</arg>
+</arguments>
+<status status="PASS" starttime="20200727 09:30:41.845" endtime="20200727 09:30:41.845"></status>
+</kw>
+<kw name="Set To Dictionary" library="Collections">
+<doc>Adds the given ``key_value_pairs`` and ``items`` to the ``dictionary``.</doc>
+<arguments>
+<arg>${WorkItem}</arg>
+<arg>${LASTUPDATED_Q_FIELD}</arg>
+<arg>${date}</arg>
+</arguments>
+<status status="PASS" starttime="20200727 09:30:41.845" endtime="20200727 09:30:41.846"></status>
+</kw>
+<kw name="Set To Dictionary" library="Collections">
+<doc>Adds the given ``key_value_pairs`` and ``items`` to the ``dictionary``.</doc>
+<arguments>
+<arg>${WorkItem}</arg>
+<arg>${EXCEPTIONREASON_Q_FIELD}</arg>
+<arg>''</arg>
+</arguments>
+<status status="PASS" starttime="20200727 09:30:41.846" endtime="20200727 09:30:41.846"></status>
+</kw>
+<kw name="Save Work Item" library="RPA.Robocloud.Items">
+<doc>Save the current data in the work item. If not saved,
+all changes are discarded when the library goes out of scope.</doc>
+<status status="PASS" starttime="20200727 09:30:41.846" endtime="20200727 09:30:41.853"></status>
+</kw>
+<status status="PASS" starttime="20200727 09:30:41.843" endtime="20200727 09:30:41.853"></status>
+</kw>
+<status status="PASS" starttime="20200727 09:30:41.770" endtime="20200727 09:30:41.853"></status>
+</kw>
+<status status="PASS" starttime="20200727 09:30:41.767" endtime="20200727 09:30:41.853"></status>
+</kw>
+<status status="PASS" starttime="20200727 09:30:41.762" endtime="20200727 09:30:41.853"></status>
+</kw>
+<kw name="Pause Execution" library="Dialogs">
+<doc>Pauses test execution until user clicks ``Ok`` button.</doc>
+<arguments>
+<arg>Execution paused after Uploading data to Queue. Press OK to continue.</arg>
+</arguments>
+<status status="PASS" starttime="20200727 09:30:41.853" endtime="20200727 09:30:42.507"></status>
+</kw>
+<status status="PASS" starttime="20200727 09:30:41.762" endtime="20200727 09:30:42.507"></status>
+</kw>
+<status status="PASS" starttime="20200727 09:30:39.614" endtime="20200727 09:30:42.508" critical="yes"></status>
+</test>
+<test id="s1-s1-t2" name="Process WorkItems">
+<kw name="Fetch WorkItem Data To Process" library="keywords">
+<arguments>
+<arg>${QUEUE_NAME}</arg>
+</arguments>
+<assign>
+<var>${WorkItems}</var>
+</assign>
+<kw name="Fetch All WorkItems" library="QueueOperations">
+<arguments>
+<arg>${QueueName}</arg>
+</arguments>
+<assign>
+<var>${WorkItems}</var>
+</assign>
+<kw name="Load Work Item From Environment" library="RPA.Robocloud.Items">
+<doc>Load current work item defined by the runtime environment.</doc>
+<status status="PASS" starttime="20200727 09:30:42.510" endtime="20200727 09:30:42.515"></status>
+</kw>
+<kw name="Get Work Item Variable" library="RPA.Robocloud.Items">
+<doc>Return a single variable value from the work item,
+or default value if defined and key does not exist.
+If key does not exist and default is not defined, raises `KeyError`.</doc>
+<arguments>
+<arg>${QueueName}</arg>
+</arguments>
+<assign>
+<var>${WorkItems}</var>
+</assign>
+<msg timestamp="20200727 09:30:42.515" level="INFO">${WorkItems} = [{'first_name': 'Reynard', 'last_name': 'Mouse', 'address': '4 Service Center', 'city': 'Toronto', 'date': '2019/07/03', 'time': '10:00 PM', 'Status': 'OPEN', 'ItemID': 'Reynard_Mouse', 'CreatedTime':...</msg>
+<status status="PASS" starttime="20200727 09:30:42.515" endtime="20200727 09:30:42.515"></status>
+</kw>
+<msg timestamp="20200727 09:30:42.517" level="INFO">${WorkItems} = [{'first_name': 'Reynard', 'last_name': 'Mouse', 'address': '4 Service Center', 'city': 'Toronto', 'date': '2019/07/03', 'time': '10:00 PM', 'Status': 'OPEN', 'ItemID': 'Reynard_Mouse', 'CreatedTime':...</msg>
+<status status="PASS" starttime="20200727 09:30:42.509" endtime="20200727 09:30:42.517"></status>
+</kw>
+<msg timestamp="20200727 09:30:42.517" level="INFO">${WorkItems} = [{'first_name': 'Reynard', 'last_name': 'Mouse', 'address': '4 Service Center', 'city': 'Toronto', 'date': '2019/07/03', 'time': '10:00 PM', 'Status': 'OPEN', 'ItemID': 'Reynard_Mouse', 'CreatedTime':...</msg>
+<status status="PASS" starttime="20200727 09:30:42.509" endtime="20200727 09:30:42.517"></status>
+</kw>
+<kw name="Process Queue WorkItems" library="keywords">
+<arguments>
+<arg>${WorkItems}</arg>
+</arguments>
+<kw name="${WorkItem} IN [ @{WorkItems} ]" type="for">
+<kw name="${WorkItem} = {'first_name': 'Reynard', 'last_name': 'Mouse', 'address': '4 Service Center', 'city': 'Toronto', 'date': '2019/07/03', 'time': '10:00 PM', 'Status': 'OPEN', 'ItemID': 'Reynard_Mouse', 'CreatedTime': ..." type="foritem">
+<kw name="validate Item Data" library="keywords">
+<arguments>
+<arg>${WorkItem}</arg>
+</arguments>
+<kw name="Run Keyword If" library="BuiltIn">
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<arguments>
+<arg>'${WorkItem["first_name"]}'=='None'</arg>
+<arg>Mark Exception</arg>
+<arg>${WorkItem}</arg>
+<arg>Data Validation Exception.</arg>
+</arguments>
+<status status="PASS" starttime="20200727 09:30:42.519" endtime="20200727 09:30:42.519"></status>
+</kw>
+<status status="PASS" starttime="20200727 09:30:42.519" endtime="20200727 09:30:42.520"></status>
+</kw>
+<kw name="Run Keyword If" library="BuiltIn">
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<arguments>
+<arg>"${WorkItem["${STATUS_Q_FIELD}"]}"=="${Q_STATUS_OPEN}"</arg>
+<arg>Run Keyword And Return Status</arg>
+<arg>Create PDF file for invitation</arg>
+<arg>${WorkItem}</arg>
+</arguments>
+<assign>
+<var>${Passed}</var>
+</assign>
+<kw name="Run Keyword And Return Status" library="BuiltIn">
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<arguments>
+<arg>Create PDF file for invitation</arg>
+<arg>${WorkItem}</arg>
+</arguments>
+<kw name="Create PDF file for invitation" library="keywords">
+<arguments>
+<arg>${WorkItem}</arg>
+</arguments>
+<kw name="Template Html To Pdf" library="RPA.PDF">
+<doc>Use HTML template file to generate PDF file.</doc>
+<arguments>
+<arg>${PDF_TEMPLATE_PATH}</arg>
+<arg>${PDF_TEMP_OUTPUT_DIRECTORY}/${WorkItem["first_name"]}_${WorkItem["last_name"]}.pdf</arg>
+<arg>${WorkItem}</arg>
+</arguments>
+<status status="PASS" starttime="20200727 09:30:42.521" endtime="20200727 09:30:42.524"></status>
+</kw>
+<status status="PASS" starttime="20200727 09:30:42.520" endtime="20200727 09:30:42.525"></status>
+</kw>
+<status status="PASS" starttime="20200727 09:30:42.520" endtime="20200727 09:30:42.525"></status>
+</kw>
+<msg timestamp="20200727 09:30:42.525" level="INFO">${Passed} = True</msg>
+<status status="PASS" starttime="20200727 09:30:42.520" endtime="20200727 09:30:42.525"></status>
+</kw>
+<kw name="Run Keyword If" library="BuiltIn">
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<arguments>
+<arg>${Passed}==True</arg>
+<arg>Mark Completed</arg>
+<arg>${WorkItem}</arg>
+</arguments>
+<kw name="Mark Completed" library="QueueOperations">
+<arguments>
+<arg>${WorkItem}</arg>
+</arguments>
+<kw name="Get Current Date" library="DateTime">
+<doc>Returns current local or UTC time with an optional increment.</doc>
+<arguments>
+<arg>UTC</arg>
+<arg>exclude_millis=yes</arg>
+</arguments>
+<assign>
+<var>${date}</var>
+</assign>
+<msg timestamp="20200727 09:30:42.526" level="INFO">${date} = 2020-07-27 04:00:43</msg>
+<status status="PASS" starttime="20200727 09:30:42.526" endtime="20200727 09:30:42.526"></status>
+</kw>
+<kw name="Set To Dictionary" library="Collections">
+<doc>Adds the given ``key_value_pairs`` and ``items`` to the ``dictionary``.</doc>
+<arguments>
+<arg>${WorkItem}</arg>
+<arg>${STATUS_Q_FIELD}</arg>
+<arg>${Q_STATUS_COMPLETED}</arg>
+</arguments>
+<status status="PASS" starttime="20200727 09:30:42.526" endtime="20200727 09:30:42.527"></status>
+</kw>
+<kw name="Set To Dictionary" library="Collections">
+<doc>Adds the given ``key_value_pairs`` and ``items`` to the ``dictionary``.</doc>
+<arguments>
+<arg>${WorkItem}</arg>
+<arg>${LASTUPDATED_Q_FIELD}</arg>
+<arg>${date}</arg>
+</arguments>
+<status status="PASS" starttime="20200727 09:30:42.527" endtime="20200727 09:30:42.527"></status>
+</kw>
+<kw name="Save Work Item" library="RPA.Robocloud.Items">
+<doc>Save the current data in the work item. If not saved,
+all changes are discarded when the library goes out of scope.</doc>
+<status status="PASS" starttime="20200727 09:30:42.527" endtime="20200727 09:30:42.528"></status>
+</kw>
+<status status="PASS" starttime="20200727 09:30:42.525" endtime="20200727 09:30:42.528"></status>
+</kw>
+<status status="PASS" starttime="20200727 09:30:42.525" endtime="20200727 09:30:42.529"></status>
+</kw>
+<kw name="Run Keyword If" library="BuiltIn">
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<arguments>
+<arg>${Passed}==False</arg>
+<arg>Mark Exception</arg>
+<arg>${WorkItem}</arg>
+<arg>Work Item Execution Exception.</arg>
+</arguments>
+<status status="PASS" starttime="20200727 09:30:42.529" endtime="20200727 09:30:42.529"></status>
+</kw>
+<status status="PASS" starttime="20200727 09:30:42.518" endtime="20200727 09:30:42.529"></status>
+</kw>
+<kw name="${WorkItem} = {'first_name': 'Elisabeth', 'last_name': '#@$%@$%^', 'address': '197 Ronald Regan Drive', 'city': 'New York', 'date': '2019/05/03', 'time': '10:20 PM', 'Status': 'OPEN', 'ItemID': 'Elisabeth_#@$%@$%^'..." type="foritem">
+<kw name="validate Item Data" library="keywords">
+<arguments>
+<arg>${WorkItem}</arg>
+</arguments>
+<kw name="Run Keyword If" library="BuiltIn">
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<arguments>
+<arg>'${WorkItem["first_name"]}'=='None'</arg>
+<arg>Mark Exception</arg>
+<arg>${WorkItem}</arg>
+<arg>Data Validation Exception.</arg>
+</arguments>
+<status status="PASS" starttime="20200727 09:30:42.530" endtime="20200727 09:30:42.530"></status>
+</kw>
+<status status="PASS" starttime="20200727 09:30:42.529" endtime="20200727 09:30:42.530"></status>
+</kw>
+<kw name="Run Keyword If" library="BuiltIn">
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<arguments>
+<arg>"${WorkItem["${STATUS_Q_FIELD}"]}"=="${Q_STATUS_OPEN}"</arg>
+<arg>Run Keyword And Return Status</arg>
+<arg>Create PDF file for invitation</arg>
+<arg>${WorkItem}</arg>
+</arguments>
+<assign>
+<var>${Passed}</var>
+</assign>
+<kw name="Run Keyword And Return Status" library="BuiltIn">
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<arguments>
+<arg>Create PDF file for invitation</arg>
+<arg>${WorkItem}</arg>
+</arguments>
+<kw name="Create PDF file for invitation" library="keywords">
+<arguments>
+<arg>${WorkItem}</arg>
+</arguments>
+<kw name="Template Html To Pdf" library="RPA.PDF">
+<doc>Use HTML template file to generate PDF file.</doc>
+<arguments>
+<arg>${PDF_TEMPLATE_PATH}</arg>
+<arg>${PDF_TEMP_OUTPUT_DIRECTORY}/${WorkItem["first_name"]}_${WorkItem["last_name"]}.pdf</arg>
+<arg>${WorkItem}</arg>
+</arguments>
+<status status="PASS" starttime="20200727 09:30:42.533" endtime="20200727 09:30:42.536"></status>
+</kw>
+<status status="PASS" starttime="20200727 09:30:42.532" endtime="20200727 09:30:42.536"></status>
+</kw>
+<status status="PASS" starttime="20200727 09:30:42.531" endtime="20200727 09:30:42.536"></status>
+</kw>
+<msg timestamp="20200727 09:30:42.537" level="INFO">${Passed} = True</msg>
+<status status="PASS" starttime="20200727 09:30:42.531" endtime="20200727 09:30:42.537"></status>
+</kw>
+<kw name="Run Keyword If" library="BuiltIn">
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<arguments>
+<arg>${Passed}==True</arg>
+<arg>Mark Completed</arg>
+<arg>${WorkItem}</arg>
+</arguments>
+<kw name="Mark Completed" library="QueueOperations">
+<arguments>
+<arg>${WorkItem}</arg>
+</arguments>
+<kw name="Get Current Date" library="DateTime">
+<doc>Returns current local or UTC time with an optional increment.</doc>
+<arguments>
+<arg>UTC</arg>
+<arg>exclude_millis=yes</arg>
+</arguments>
+<assign>
+<var>${date}</var>
+</assign>
+<msg timestamp="20200727 09:30:42.539" level="INFO">${date} = 2020-07-27 04:00:43</msg>
+<status status="PASS" starttime="20200727 09:30:42.538" endtime="20200727 09:30:42.539"></status>
+</kw>
+<kw name="Set To Dictionary" library="Collections">
+<doc>Adds the given ``key_value_pairs`` and ``items`` to the ``dictionary``.</doc>
+<arguments>
+<arg>${WorkItem}</arg>
+<arg>${STATUS_Q_FIELD}</arg>
+<arg>${Q_STATUS_COMPLETED}</arg>
+</arguments>
+<status status="PASS" starttime="20200727 09:30:42.539" endtime="20200727 09:30:42.540"></status>
+</kw>
+<kw name="Set To Dictionary" library="Collections">
+<doc>Adds the given ``key_value_pairs`` and ``items`` to the ``dictionary``.</doc>
+<arguments>
+<arg>${WorkItem}</arg>
+<arg>${LASTUPDATED_Q_FIELD}</arg>
+<arg>${date}</arg>
+</arguments>
+<status status="PASS" starttime="20200727 09:30:42.540" endtime="20200727 09:30:42.540"></status>
+</kw>
+<kw name="Save Work Item" library="RPA.Robocloud.Items">
+<doc>Save the current data in the work item. If not saved,
+all changes are discarded when the library goes out of scope.</doc>
+<status status="PASS" starttime="20200727 09:30:42.540" endtime="20200727 09:30:42.549"></status>
+</kw>
+<status status="PASS" starttime="20200727 09:30:42.537" endtime="20200727 09:30:42.549"></status>
+</kw>
+<status status="PASS" starttime="20200727 09:30:42.537" endtime="20200727 09:30:42.549"></status>
+</kw>
+<kw name="Run Keyword If" library="BuiltIn">
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<arguments>
+<arg>${Passed}==False</arg>
+<arg>Mark Exception</arg>
+<arg>${WorkItem}</arg>
+<arg>Work Item Execution Exception.</arg>
+</arguments>
+<status status="PASS" starttime="20200727 09:30:42.549" endtime="20200727 09:30:42.550"></status>
+</kw>
+<status status="PASS" starttime="20200727 09:30:42.529" endtime="20200727 09:30:42.550"></status>
+</kw>
+<kw name="${WorkItem} = {'first_name': 'Cyril', 'last_name': 'Blundon', 'address': '3554 Chive Circle', 'city': 'San Francisco', 'date': '2019/05/10', 'time': '1:33 PM', 'Status': 'OPEN', 'ItemID': 'Cyril_Blundon', 'CreatedT..." type="foritem">
+<kw name="validate Item Data" library="keywords">
+<arguments>
+<arg>${WorkItem}</arg>
+</arguments>
+<kw name="Run Keyword If" library="BuiltIn">
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<arguments>
+<arg>'${WorkItem["first_name"]}'=='None'</arg>
+<arg>Mark Exception</arg>
+<arg>${WorkItem}</arg>
+<arg>Data Validation Exception.</arg>
+</arguments>
+<status status="PASS" starttime="20200727 09:30:42.551" endtime="20200727 09:30:42.552"></status>
+</kw>
+<status status="PASS" starttime="20200727 09:30:42.550" endtime="20200727 09:30:42.552"></status>
+</kw>
+<kw name="Run Keyword If" library="BuiltIn">
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<arguments>
+<arg>"${WorkItem["${STATUS_Q_FIELD}"]}"=="${Q_STATUS_OPEN}"</arg>
+<arg>Run Keyword And Return Status</arg>
+<arg>Create PDF file for invitation</arg>
+<arg>${WorkItem}</arg>
+</arguments>
+<assign>
+<var>${Passed}</var>
+</assign>
+<kw name="Run Keyword And Return Status" library="BuiltIn">
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<arguments>
+<arg>Create PDF file for invitation</arg>
+<arg>${WorkItem}</arg>
+</arguments>
+<kw name="Create PDF file for invitation" library="keywords">
+<arguments>
+<arg>${WorkItem}</arg>
+</arguments>
+<kw name="Template Html To Pdf" library="RPA.PDF">
+<doc>Use HTML template file to generate PDF file.</doc>
+<arguments>
+<arg>${PDF_TEMPLATE_PATH}</arg>
+<arg>${PDF_TEMP_OUTPUT_DIRECTORY}/${WorkItem["first_name"]}_${WorkItem["last_name"]}.pdf</arg>
+<arg>${WorkItem}</arg>
+</arguments>
+<status status="PASS" starttime="20200727 09:30:42.554" endtime="20200727 09:30:42.568"></status>
+</kw>
+<status status="PASS" starttime="20200727 09:30:42.553" endtime="20200727 09:30:42.568"></status>
+</kw>
+<status status="PASS" starttime="20200727 09:30:42.553" endtime="20200727 09:30:42.568"></status>
+</kw>
+<msg timestamp="20200727 09:30:42.568" level="INFO">${Passed} = True</msg>
+<status status="PASS" starttime="20200727 09:30:42.552" endtime="20200727 09:30:42.568"></status>
+</kw>
+<kw name="Run Keyword If" library="BuiltIn">
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<arguments>
+<arg>${Passed}==True</arg>
+<arg>Mark Completed</arg>
+<arg>${WorkItem}</arg>
+</arguments>
+<kw name="Mark Completed" library="QueueOperations">
+<arguments>
+<arg>${WorkItem}</arg>
+</arguments>
+<kw name="Get Current Date" library="DateTime">
+<doc>Returns current local or UTC time with an optional increment.</doc>
+<arguments>
+<arg>UTC</arg>
+<arg>exclude_millis=yes</arg>
+</arguments>
+<assign>
+<var>${date}</var>
+</assign>
+<msg timestamp="20200727 09:30:42.570" level="INFO">${date} = 2020-07-27 04:00:43</msg>
+<status status="PASS" starttime="20200727 09:30:42.569" endtime="20200727 09:30:42.570"></status>
+</kw>
+<kw name="Set To Dictionary" library="Collections">
+<doc>Adds the given ``key_value_pairs`` and ``items`` to the ``dictionary``.</doc>
+<arguments>
+<arg>${WorkItem}</arg>
+<arg>${STATUS_Q_FIELD}</arg>
+<arg>${Q_STATUS_COMPLETED}</arg>
+</arguments>
+<status status="PASS" starttime="20200727 09:30:42.570" endtime="20200727 09:30:42.570"></status>
+</kw>
+<kw name="Set To Dictionary" library="Collections">
+<doc>Adds the given ``key_value_pairs`` and ``items`` to the ``dictionary``.</doc>
+<arguments>
+<arg>${WorkItem}</arg>
+<arg>${LASTUPDATED_Q_FIELD}</arg>
+<arg>${date}</arg>
+</arguments>
+<status status="PASS" starttime="20200727 09:30:42.570" endtime="20200727 09:30:42.570"></status>
+</kw>
+<kw name="Save Work Item" library="RPA.Robocloud.Items">
+<doc>Save the current data in the work item. If not saved,
+all changes are discarded when the library goes out of scope.</doc>
+<status status="PASS" starttime="20200727 09:30:42.571" endtime="20200727 09:30:42.576"></status>
+</kw>
+<status status="PASS" starttime="20200727 09:30:42.569" endtime="20200727 09:30:42.576"></status>
+</kw>
+<status status="PASS" starttime="20200727 09:30:42.568" endtime="20200727 09:30:42.576"></status>
+</kw>
+<kw name="Run Keyword If" library="BuiltIn">
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<arguments>
+<arg>${Passed}==False</arg>
+<arg>Mark Exception</arg>
+<arg>${WorkItem}</arg>
+<arg>Work Item Execution Exception.</arg>
+</arguments>
+<status status="PASS" starttime="20200727 09:30:42.577" endtime="20200727 09:30:42.577"></status>
+</kw>
+<status status="PASS" starttime="20200727 09:30:42.550" endtime="20200727 09:30:42.577"></status>
+</kw>
+<kw name="${WorkItem} = {'first_name': 'Vincenz', 'last_name': 'Paolazzi', 'address': '20533 6th Crossing', 'city': 'Milan', 'date': '2019/12/14', 'time': '6:58 AM', 'Status': 'OPEN', 'ItemID': 'Vincenz_Paolazzi', 'CreatedTi..." type="foritem">
+<kw name="validate Item Data" library="keywords">
+<arguments>
+<arg>${WorkItem}</arg>
+</arguments>
+<kw name="Run Keyword If" library="BuiltIn">
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<arguments>
+<arg>'${WorkItem["first_name"]}'=='None'</arg>
+<arg>Mark Exception</arg>
+<arg>${WorkItem}</arg>
+<arg>Data Validation Exception.</arg>
+</arguments>
+<status status="PASS" starttime="20200727 09:30:42.578" endtime="20200727 09:30:42.578"></status>
+</kw>
+<status status="PASS" starttime="20200727 09:30:42.577" endtime="20200727 09:30:42.578"></status>
+</kw>
+<kw name="Run Keyword If" library="BuiltIn">
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<arguments>
+<arg>"${WorkItem["${STATUS_Q_FIELD}"]}"=="${Q_STATUS_OPEN}"</arg>
+<arg>Run Keyword And Return Status</arg>
+<arg>Create PDF file for invitation</arg>
+<arg>${WorkItem}</arg>
+</arguments>
+<assign>
+<var>${Passed}</var>
+</assign>
+<kw name="Run Keyword And Return Status" library="BuiltIn">
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<arguments>
+<arg>Create PDF file for invitation</arg>
+<arg>${WorkItem}</arg>
+</arguments>
+<kw name="Create PDF file for invitation" library="keywords">
+<arguments>
+<arg>${WorkItem}</arg>
+</arguments>
+<kw name="Template Html To Pdf" library="RPA.PDF">
+<doc>Use HTML template file to generate PDF file.</doc>
+<arguments>
+<arg>${PDF_TEMPLATE_PATH}</arg>
+<arg>${PDF_TEMP_OUTPUT_DIRECTORY}/${WorkItem["first_name"]}_${WorkItem["last_name"]}.pdf</arg>
+<arg>${WorkItem}</arg>
+</arguments>
+<status status="PASS" starttime="20200727 09:30:42.579" endtime="20200727 09:30:42.581"></status>
+</kw>
+<status status="PASS" starttime="20200727 09:30:42.579" endtime="20200727 09:30:42.581"></status>
+</kw>
+<status status="PASS" starttime="20200727 09:30:42.578" endtime="20200727 09:30:42.581"></status>
+</kw>
+<msg timestamp="20200727 09:30:42.581" level="INFO">${Passed} = True</msg>
+<status status="PASS" starttime="20200727 09:30:42.578" endtime="20200727 09:30:42.581"></status>
+</kw>
+<kw name="Run Keyword If" library="BuiltIn">
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<arguments>
+<arg>${Passed}==True</arg>
+<arg>Mark Completed</arg>
+<arg>${WorkItem}</arg>
+</arguments>
+<kw name="Mark Completed" library="QueueOperations">
+<arguments>
+<arg>${WorkItem}</arg>
+</arguments>
+<kw name="Get Current Date" library="DateTime">
+<doc>Returns current local or UTC time with an optional increment.</doc>
+<arguments>
+<arg>UTC</arg>
+<arg>exclude_millis=yes</arg>
+</arguments>
+<assign>
+<var>${date}</var>
+</assign>
+<msg timestamp="20200727 09:30:42.582" level="INFO">${date} = 2020-07-27 04:00:43</msg>
+<status status="PASS" starttime="20200727 09:30:42.582" endtime="20200727 09:30:42.582"></status>
+</kw>
+<kw name="Set To Dictionary" library="Collections">
+<doc>Adds the given ``key_value_pairs`` and ``items`` to the ``dictionary``.</doc>
+<arguments>
+<arg>${WorkItem}</arg>
+<arg>${STATUS_Q_FIELD}</arg>
+<arg>${Q_STATUS_COMPLETED}</arg>
+</arguments>
+<status status="PASS" starttime="20200727 09:30:42.582" endtime="20200727 09:30:42.582"></status>
+</kw>
+<kw name="Set To Dictionary" library="Collections">
+<doc>Adds the given ``key_value_pairs`` and ``items`` to the ``dictionary``.</doc>
+<arguments>
+<arg>${WorkItem}</arg>
+<arg>${LASTUPDATED_Q_FIELD}</arg>
+<arg>${date}</arg>
+</arguments>
+<status status="PASS" starttime="20200727 09:30:42.583" endtime="20200727 09:30:42.583"></status>
+</kw>
+<kw name="Save Work Item" library="RPA.Robocloud.Items">
+<doc>Save the current data in the work item. If not saved,
+all changes are discarded when the library goes out of scope.</doc>
+<status status="PASS" starttime="20200727 09:30:42.583" endtime="20200727 09:30:42.589"></status>
+</kw>
+<status status="PASS" starttime="20200727 09:30:42.582" endtime="20200727 09:30:42.589"></status>
+</kw>
+<status status="PASS" starttime="20200727 09:30:42.582" endtime="20200727 09:30:42.589"></status>
+</kw>
+<kw name="Run Keyword If" library="BuiltIn">
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<arguments>
+<arg>${Passed}==False</arg>
+<arg>Mark Exception</arg>
+<arg>${WorkItem}</arg>
+<arg>Work Item Execution Exception.</arg>
+</arguments>
+<status status="PASS" starttime="20200727 09:30:42.589" endtime="20200727 09:30:42.589"></status>
+</kw>
+<status status="PASS" starttime="20200727 09:30:42.577" endtime="20200727 09:30:42.589"></status>
+</kw>
+<kw name="${WorkItem} = {'first_name': 'Jeannie', 'last_name': 'Charge', 'address': '9 Michigan Street', 'city': 'Kansas City', 'date': '2020/02/12', 'time': '4:27 AM', 'Status': 'OPEN', 'ItemID': 'Jeannie_Charge', 'CreatedT..." type="foritem">
+<kw name="validate Item Data" library="keywords">
+<arguments>
+<arg>${WorkItem}</arg>
+</arguments>
+<kw name="Run Keyword If" library="BuiltIn">
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<arguments>
+<arg>'${WorkItem["first_name"]}'=='None'</arg>
+<arg>Mark Exception</arg>
+<arg>${WorkItem}</arg>
+<arg>Data Validation Exception.</arg>
+</arguments>
+<status status="PASS" starttime="20200727 09:30:42.590" endtime="20200727 09:30:42.590"></status>
+</kw>
+<status status="PASS" starttime="20200727 09:30:42.590" endtime="20200727 09:30:42.590"></status>
+</kw>
+<kw name="Run Keyword If" library="BuiltIn">
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<arguments>
+<arg>"${WorkItem["${STATUS_Q_FIELD}"]}"=="${Q_STATUS_OPEN}"</arg>
+<arg>Run Keyword And Return Status</arg>
+<arg>Create PDF file for invitation</arg>
+<arg>${WorkItem}</arg>
+</arguments>
+<assign>
+<var>${Passed}</var>
+</assign>
+<kw name="Run Keyword And Return Status" library="BuiltIn">
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<arguments>
+<arg>Create PDF file for invitation</arg>
+<arg>${WorkItem}</arg>
+</arguments>
+<kw name="Create PDF file for invitation" library="keywords">
+<arguments>
+<arg>${WorkItem}</arg>
+</arguments>
+<kw name="Template Html To Pdf" library="RPA.PDF">
+<doc>Use HTML template file to generate PDF file.</doc>
+<arguments>
+<arg>${PDF_TEMPLATE_PATH}</arg>
+<arg>${PDF_TEMP_OUTPUT_DIRECTORY}/${WorkItem["first_name"]}_${WorkItem["last_name"]}.pdf</arg>
+<arg>${WorkItem}</arg>
+</arguments>
+<status status="PASS" starttime="20200727 09:30:42.592" endtime="20200727 09:30:42.594"></status>
+</kw>
+<status status="PASS" starttime="20200727 09:30:42.591" endtime="20200727 09:30:42.594"></status>
+</kw>
+<status status="PASS" starttime="20200727 09:30:42.591" endtime="20200727 09:30:42.594"></status>
+</kw>
+<msg timestamp="20200727 09:30:42.594" level="INFO">${Passed} = True</msg>
+<status status="PASS" starttime="20200727 09:30:42.591" endtime="20200727 09:30:42.594"></status>
+</kw>
+<kw name="Run Keyword If" library="BuiltIn">
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<arguments>
+<arg>${Passed}==True</arg>
+<arg>Mark Completed</arg>
+<arg>${WorkItem}</arg>
+</arguments>
+<kw name="Mark Completed" library="QueueOperations">
+<arguments>
+<arg>${WorkItem}</arg>
+</arguments>
+<kw name="Get Current Date" library="DateTime">
+<doc>Returns current local or UTC time with an optional increment.</doc>
+<arguments>
+<arg>UTC</arg>
+<arg>exclude_millis=yes</arg>
+</arguments>
+<assign>
+<var>${date}</var>
+</assign>
+<msg timestamp="20200727 09:30:42.595" level="INFO">${date} = 2020-07-27 04:00:43</msg>
+<status status="PASS" starttime="20200727 09:30:42.595" endtime="20200727 09:30:42.596"></status>
+</kw>
+<kw name="Set To Dictionary" library="Collections">
+<doc>Adds the given ``key_value_pairs`` and ``items`` to the ``dictionary``.</doc>
+<arguments>
+<arg>${WorkItem}</arg>
+<arg>${STATUS_Q_FIELD}</arg>
+<arg>${Q_STATUS_COMPLETED}</arg>
+</arguments>
+<status status="PASS" starttime="20200727 09:30:42.596" endtime="20200727 09:30:42.596"></status>
+</kw>
+<kw name="Set To Dictionary" library="Collections">
+<doc>Adds the given ``key_value_pairs`` and ``items`` to the ``dictionary``.</doc>
+<arguments>
+<arg>${WorkItem}</arg>
+<arg>${LASTUPDATED_Q_FIELD}</arg>
+<arg>${date}</arg>
+</arguments>
+<status status="PASS" starttime="20200727 09:30:42.596" endtime="20200727 09:30:42.596"></status>
+</kw>
+<kw name="Save Work Item" library="RPA.Robocloud.Items">
+<doc>Save the current data in the work item. If not saved,
+all changes are discarded when the library goes out of scope.</doc>
+<status status="PASS" starttime="20200727 09:30:42.597" endtime="20200727 09:30:42.604"></status>
+</kw>
+<status status="PASS" starttime="20200727 09:30:42.595" endtime="20200727 09:30:42.604"></status>
+</kw>
+<status status="PASS" starttime="20200727 09:30:42.594" endtime="20200727 09:30:42.604"></status>
+</kw>
+<kw name="Run Keyword If" library="BuiltIn">
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<arguments>
+<arg>${Passed}==False</arg>
+<arg>Mark Exception</arg>
+<arg>${WorkItem}</arg>
+<arg>Work Item Execution Exception.</arg>
+</arguments>
+<status status="PASS" starttime="20200727 09:30:42.604" endtime="20200727 09:30:42.605"></status>
+</kw>
+<status status="PASS" starttime="20200727 09:30:42.590" endtime="20200727 09:30:42.605"></status>
+</kw>
+<kw name="${WorkItem} = {'first_name': 'Alexio', 'last_name': 'Hellis', 'address': '8 Grim Trail', 'city': 'Lahore', 'date': '2019/05/05', 'time': '5:04 PM', 'Status': 'OPEN', 'ItemID': 'Alexio_Hellis', 'CreatedTime': '2020-..." type="foritem">
+<kw name="validate Item Data" library="keywords">
+<arguments>
+<arg>${WorkItem}</arg>
+</arguments>
+<kw name="Run Keyword If" library="BuiltIn">
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<arguments>
+<arg>'${WorkItem["first_name"]}'=='None'</arg>
+<arg>Mark Exception</arg>
+<arg>${WorkItem}</arg>
+<arg>Data Validation Exception.</arg>
+</arguments>
+<status status="PASS" starttime="20200727 09:30:42.606" endtime="20200727 09:30:42.606"></status>
+</kw>
+<status status="PASS" starttime="20200727 09:30:42.605" endtime="20200727 09:30:42.606"></status>
+</kw>
+<kw name="Run Keyword If" library="BuiltIn">
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<arguments>
+<arg>"${WorkItem["${STATUS_Q_FIELD}"]}"=="${Q_STATUS_OPEN}"</arg>
+<arg>Run Keyword And Return Status</arg>
+<arg>Create PDF file for invitation</arg>
+<arg>${WorkItem}</arg>
+</arguments>
+<assign>
+<var>${Passed}</var>
+</assign>
+<kw name="Run Keyword And Return Status" library="BuiltIn">
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<arguments>
+<arg>Create PDF file for invitation</arg>
+<arg>${WorkItem}</arg>
+</arguments>
+<kw name="Create PDF file for invitation" library="keywords">
+<arguments>
+<arg>${WorkItem}</arg>
+</arguments>
+<kw name="Template Html To Pdf" library="RPA.PDF">
+<doc>Use HTML template file to generate PDF file.</doc>
+<arguments>
+<arg>${PDF_TEMPLATE_PATH}</arg>
+<arg>${PDF_TEMP_OUTPUT_DIRECTORY}/${WorkItem["first_name"]}_${WorkItem["last_name"]}.pdf</arg>
+<arg>${WorkItem}</arg>
+</arguments>
+<status status="PASS" starttime="20200727 09:30:42.608" endtime="20200727 09:30:42.610"></status>
+</kw>
+<status status="PASS" starttime="20200727 09:30:42.607" endtime="20200727 09:30:42.610"></status>
+</kw>
+<status status="PASS" starttime="20200727 09:30:42.607" endtime="20200727 09:30:42.610"></status>
+</kw>
+<msg timestamp="20200727 09:30:42.611" level="INFO">${Passed} = True</msg>
+<status status="PASS" starttime="20200727 09:30:42.606" endtime="20200727 09:30:42.611"></status>
+</kw>
+<kw name="Run Keyword If" library="BuiltIn">
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<arguments>
+<arg>${Passed}==True</arg>
+<arg>Mark Completed</arg>
+<arg>${WorkItem}</arg>
+</arguments>
+<kw name="Mark Completed" library="QueueOperations">
+<arguments>
+<arg>${WorkItem}</arg>
+</arguments>
+<kw name="Get Current Date" library="DateTime">
+<doc>Returns current local or UTC time with an optional increment.</doc>
+<arguments>
+<arg>UTC</arg>
+<arg>exclude_millis=yes</arg>
+</arguments>
+<assign>
+<var>${date}</var>
+</assign>
+<msg timestamp="20200727 09:30:42.612" level="INFO">${date} = 2020-07-27 04:00:43</msg>
+<status status="PASS" starttime="20200727 09:30:42.612" endtime="20200727 09:30:42.612"></status>
+</kw>
+<kw name="Set To Dictionary" library="Collections">
+<doc>Adds the given ``key_value_pairs`` and ``items`` to the ``dictionary``.</doc>
+<arguments>
+<arg>${WorkItem}</arg>
+<arg>${STATUS_Q_FIELD}</arg>
+<arg>${Q_STATUS_COMPLETED}</arg>
+</arguments>
+<status status="PASS" starttime="20200727 09:30:42.612" endtime="20200727 09:30:42.612"></status>
+</kw>
+<kw name="Set To Dictionary" library="Collections">
+<doc>Adds the given ``key_value_pairs`` and ``items`` to the ``dictionary``.</doc>
+<arguments>
+<arg>${WorkItem}</arg>
+<arg>${LASTUPDATED_Q_FIELD}</arg>
+<arg>${date}</arg>
+</arguments>
+<status status="PASS" starttime="20200727 09:30:42.612" endtime="20200727 09:30:42.613"></status>
+</kw>
+<kw name="Save Work Item" library="RPA.Robocloud.Items">
+<doc>Save the current data in the work item. If not saved,
+all changes are discarded when the library goes out of scope.</doc>
+<status status="PASS" starttime="20200727 09:30:42.613" endtime="20200727 09:30:42.619"></status>
+</kw>
+<status status="PASS" starttime="20200727 09:30:42.611" endtime="20200727 09:30:42.619"></status>
+</kw>
+<status status="PASS" starttime="20200727 09:30:42.611" endtime="20200727 09:30:42.619"></status>
+</kw>
+<kw name="Run Keyword If" library="BuiltIn">
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<arguments>
+<arg>${Passed}==False</arg>
+<arg>Mark Exception</arg>
+<arg>${WorkItem}</arg>
+<arg>Work Item Execution Exception.</arg>
+</arguments>
+<status status="PASS" starttime="20200727 09:30:42.619" endtime="20200727 09:30:42.620"></status>
+</kw>
+<status status="PASS" starttime="20200727 09:30:42.605" endtime="20200727 09:30:42.620"></status>
+</kw>
+<kw name="${WorkItem} = {'first_name': 'Luca', 'last_name': 'Viel', 'address': '91764 Reindahl Park', 'city': 'New Dehli', 'date': '2019/12/17', 'time': '8:37 AM', 'Status': 'OPEN', 'ItemID': 'Luca_Viel', 'CreatedTime': '202..." type="foritem">
+<kw name="validate Item Data" library="keywords">
+<arguments>
+<arg>${WorkItem}</arg>
+</arguments>
+<kw name="Run Keyword If" library="BuiltIn">
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<arguments>
+<arg>'${WorkItem["first_name"]}'=='None'</arg>
+<arg>Mark Exception</arg>
+<arg>${WorkItem}</arg>
+<arg>Data Validation Exception.</arg>
+</arguments>
+<status status="PASS" starttime="20200727 09:30:42.620" endtime="20200727 09:30:42.621"></status>
+</kw>
+<status status="PASS" starttime="20200727 09:30:42.620" endtime="20200727 09:30:42.621"></status>
+</kw>
+<kw name="Run Keyword If" library="BuiltIn">
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<arguments>
+<arg>"${WorkItem["${STATUS_Q_FIELD}"]}"=="${Q_STATUS_OPEN}"</arg>
+<arg>Run Keyword And Return Status</arg>
+<arg>Create PDF file for invitation</arg>
+<arg>${WorkItem}</arg>
+</arguments>
+<assign>
+<var>${Passed}</var>
+</assign>
+<kw name="Run Keyword And Return Status" library="BuiltIn">
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<arguments>
+<arg>Create PDF file for invitation</arg>
+<arg>${WorkItem}</arg>
+</arguments>
+<kw name="Create PDF file for invitation" library="keywords">
+<arguments>
+<arg>${WorkItem}</arg>
+</arguments>
+<kw name="Template Html To Pdf" library="RPA.PDF">
+<doc>Use HTML template file to generate PDF file.</doc>
+<arguments>
+<arg>${PDF_TEMPLATE_PATH}</arg>
+<arg>${PDF_TEMP_OUTPUT_DIRECTORY}/${WorkItem["first_name"]}_${WorkItem["last_name"]}.pdf</arg>
+<arg>${WorkItem}</arg>
+</arguments>
+<status status="PASS" starttime="20200727 09:30:42.622" endtime="20200727 09:30:42.624"></status>
+</kw>
+<status status="PASS" starttime="20200727 09:30:42.621" endtime="20200727 09:30:42.624"></status>
+</kw>
+<status status="PASS" starttime="20200727 09:30:42.621" endtime="20200727 09:30:42.624"></status>
+</kw>
+<msg timestamp="20200727 09:30:42.624" level="INFO">${Passed} = True</msg>
+<status status="PASS" starttime="20200727 09:30:42.621" endtime="20200727 09:30:42.624"></status>
+</kw>
+<kw name="Run Keyword If" library="BuiltIn">
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<arguments>
+<arg>${Passed}==True</arg>
+<arg>Mark Completed</arg>
+<arg>${WorkItem}</arg>
+</arguments>
+<kw name="Mark Completed" library="QueueOperations">
+<arguments>
+<arg>${WorkItem}</arg>
+</arguments>
+<kw name="Get Current Date" library="DateTime">
+<doc>Returns current local or UTC time with an optional increment.</doc>
+<arguments>
+<arg>UTC</arg>
+<arg>exclude_millis=yes</arg>
+</arguments>
+<assign>
+<var>${date}</var>
+</assign>
+<msg timestamp="20200727 09:30:42.626" level="INFO">${date} = 2020-07-27 04:00:43</msg>
+<status status="PASS" starttime="20200727 09:30:42.625" endtime="20200727 09:30:42.626"></status>
+</kw>
+<kw name="Set To Dictionary" library="Collections">
+<doc>Adds the given ``key_value_pairs`` and ``items`` to the ``dictionary``.</doc>
+<arguments>
+<arg>${WorkItem}</arg>
+<arg>${STATUS_Q_FIELD}</arg>
+<arg>${Q_STATUS_COMPLETED}</arg>
+</arguments>
+<status status="PASS" starttime="20200727 09:30:42.626" endtime="20200727 09:30:42.626"></status>
+</kw>
+<kw name="Set To Dictionary" library="Collections">
+<doc>Adds the given ``key_value_pairs`` and ``items`` to the ``dictionary``.</doc>
+<arguments>
+<arg>${WorkItem}</arg>
+<arg>${LASTUPDATED_Q_FIELD}</arg>
+<arg>${date}</arg>
+</arguments>
+<status status="PASS" starttime="20200727 09:30:42.626" endtime="20200727 09:30:42.627"></status>
+</kw>
+<kw name="Save Work Item" library="RPA.Robocloud.Items">
+<doc>Save the current data in the work item. If not saved,
+all changes are discarded when the library goes out of scope.</doc>
+<status status="PASS" starttime="20200727 09:30:42.627" endtime="20200727 09:30:42.633"></status>
+</kw>
+<status status="PASS" starttime="20200727 09:30:42.625" endtime="20200727 09:30:42.633"></status>
+</kw>
+<status status="PASS" starttime="20200727 09:30:42.625" endtime="20200727 09:30:42.633"></status>
+</kw>
+<kw name="Run Keyword If" library="BuiltIn">
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<arguments>
+<arg>${Passed}==False</arg>
+<arg>Mark Exception</arg>
+<arg>${WorkItem}</arg>
+<arg>Work Item Execution Exception.</arg>
+</arguments>
+<status status="PASS" starttime="20200727 09:30:42.633" endtime="20200727 09:30:42.634"></status>
+</kw>
+<status status="PASS" starttime="20200727 09:30:42.620" endtime="20200727 09:30:42.634"></status>
+</kw>
+<kw name="${WorkItem} = {'first_name': 'Sly', 'last_name': 'Lammerts', 'address': '8077 Pennsylvania Drive', 'city': 'Helsinki', 'date': '2020/02/09', 'time': '11:23 PM', 'Status': 'OPEN', 'ItemID': 'Sly_Lammerts', 'CreatedT..." type="foritem">
+<kw name="validate Item Data" library="keywords">
+<arguments>
+<arg>${WorkItem}</arg>
+</arguments>
+<kw name="Run Keyword If" library="BuiltIn">
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<arguments>
+<arg>'${WorkItem["first_name"]}'=='None'</arg>
+<arg>Mark Exception</arg>
+<arg>${WorkItem}</arg>
+<arg>Data Validation Exception.</arg>
+</arguments>
+<status status="PASS" starttime="20200727 09:30:42.634" endtime="20200727 09:30:42.635"></status>
+</kw>
+<status status="PASS" starttime="20200727 09:30:42.634" endtime="20200727 09:30:42.635"></status>
+</kw>
+<kw name="Run Keyword If" library="BuiltIn">
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<arguments>
+<arg>"${WorkItem["${STATUS_Q_FIELD}"]}"=="${Q_STATUS_OPEN}"</arg>
+<arg>Run Keyword And Return Status</arg>
+<arg>Create PDF file for invitation</arg>
+<arg>${WorkItem}</arg>
+</arguments>
+<assign>
+<var>${Passed}</var>
+</assign>
+<kw name="Run Keyword And Return Status" library="BuiltIn">
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<arguments>
+<arg>Create PDF file for invitation</arg>
+<arg>${WorkItem}</arg>
+</arguments>
+<kw name="Create PDF file for invitation" library="keywords">
+<arguments>
+<arg>${WorkItem}</arg>
+</arguments>
+<kw name="Template Html To Pdf" library="RPA.PDF">
+<doc>Use HTML template file to generate PDF file.</doc>
+<arguments>
+<arg>${PDF_TEMPLATE_PATH}</arg>
+<arg>${PDF_TEMP_OUTPUT_DIRECTORY}/${WorkItem["first_name"]}_${WorkItem["last_name"]}.pdf</arg>
+<arg>${WorkItem}</arg>
+</arguments>
+<status status="PASS" starttime="20200727 09:30:42.636" endtime="20200727 09:30:42.638"></status>
+</kw>
+<status status="PASS" starttime="20200727 09:30:42.636" endtime="20200727 09:30:42.638"></status>
+</kw>
+<status status="PASS" starttime="20200727 09:30:42.635" endtime="20200727 09:30:42.638"></status>
+</kw>
+<msg timestamp="20200727 09:30:42.638" level="INFO">${Passed} = True</msg>
+<status status="PASS" starttime="20200727 09:30:42.635" endtime="20200727 09:30:42.638"></status>
+</kw>
+<kw name="Run Keyword If" library="BuiltIn">
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<arguments>
+<arg>${Passed}==True</arg>
+<arg>Mark Completed</arg>
+<arg>${WorkItem}</arg>
+</arguments>
+<kw name="Mark Completed" library="QueueOperations">
+<arguments>
+<arg>${WorkItem}</arg>
+</arguments>
+<kw name="Get Current Date" library="DateTime">
+<doc>Returns current local or UTC time with an optional increment.</doc>
+<arguments>
+<arg>UTC</arg>
+<arg>exclude_millis=yes</arg>
+</arguments>
+<assign>
+<var>${date}</var>
+</assign>
+<msg timestamp="20200727 09:30:42.640" level="INFO">${date} = 2020-07-27 04:00:43</msg>
+<status status="PASS" starttime="20200727 09:30:42.640" endtime="20200727 09:30:42.640"></status>
+</kw>
+<kw name="Set To Dictionary" library="Collections">
+<doc>Adds the given ``key_value_pairs`` and ``items`` to the ``dictionary``.</doc>
+<arguments>
+<arg>${WorkItem}</arg>
+<arg>${STATUS_Q_FIELD}</arg>
+<arg>${Q_STATUS_COMPLETED}</arg>
+</arguments>
+<status status="PASS" starttime="20200727 09:30:42.640" endtime="20200727 09:30:42.640"></status>
+</kw>
+<kw name="Set To Dictionary" library="Collections">
+<doc>Adds the given ``key_value_pairs`` and ``items`` to the ``dictionary``.</doc>
+<arguments>
+<arg>${WorkItem}</arg>
+<arg>${LASTUPDATED_Q_FIELD}</arg>
+<arg>${date}</arg>
+</arguments>
+<status status="PASS" starttime="20200727 09:30:42.640" endtime="20200727 09:30:42.641"></status>
+</kw>
+<kw name="Save Work Item" library="RPA.Robocloud.Items">
+<doc>Save the current data in the work item. If not saved,
+all changes are discarded when the library goes out of scope.</doc>
+<status status="PASS" starttime="20200727 09:30:42.641" endtime="20200727 09:30:42.647"></status>
+</kw>
+<status status="PASS" starttime="20200727 09:30:42.639" endtime="20200727 09:30:42.647"></status>
+</kw>
+<status status="PASS" starttime="20200727 09:30:42.639" endtime="20200727 09:30:42.647"></status>
+</kw>
+<kw name="Run Keyword If" library="BuiltIn">
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<arguments>
+<arg>${Passed}==False</arg>
+<arg>Mark Exception</arg>
+<arg>${WorkItem}</arg>
+<arg>Work Item Execution Exception.</arg>
+</arguments>
+<status status="PASS" starttime="20200727 09:30:42.647" endtime="20200727 09:30:42.648"></status>
+</kw>
+<status status="PASS" starttime="20200727 09:30:42.634" endtime="20200727 09:30:42.648"></status>
+</kw>
+<kw name="${WorkItem} = {'first_name': None, 'last_name': None, 'address': '3619 Oxford Place', 'city': 'Stockholm', 'date': '2019/10/30', 'time': '1:15 PM', 'Status': 'OPEN', 'ItemID': 'None_None', 'CreatedTime': '2020-07-2..." type="foritem">
+<kw name="validate Item Data" library="keywords">
+<arguments>
+<arg>${WorkItem}</arg>
+</arguments>
+<kw name="Run Keyword If" library="BuiltIn">
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<arguments>
+<arg>'${WorkItem["first_name"]}'=='None'</arg>
+<arg>Mark Exception</arg>
+<arg>${WorkItem}</arg>
+<arg>Data Validation Exception.</arg>
+</arguments>
+<kw name="Mark Exception" library="QueueOperations">
+<arguments>
+<arg>${WorkItem}</arg>
+<arg>Data Validation Exception.</arg>
+</arguments>
+<kw name="Get Current Date" library="DateTime">
+<doc>Returns current local or UTC time with an optional increment.</doc>
+<arguments>
+<arg>UTC</arg>
+<arg>exclude_millis=yes</arg>
+</arguments>
+<assign>
+<var>${date}</var>
+</assign>
+<msg timestamp="20200727 09:30:42.650" level="INFO">${date} = 2020-07-27 04:00:43</msg>
+<status status="PASS" starttime="20200727 09:30:42.650" endtime="20200727 09:30:42.650"></status>
+</kw>
+<kw name="Set To Dictionary" library="Collections">
+<doc>Adds the given ``key_value_pairs`` and ``items`` to the ``dictionary``.</doc>
+<arguments>
+<arg>${WorkItem}</arg>
+<arg>${STATUS_Q_FIELD}</arg>
+<arg>${Q_STATUS_EXCEPTION}</arg>
+</arguments>
+<status status="PASS" starttime="20200727 09:30:42.651" endtime="20200727 09:30:42.651"></status>
+</kw>
+<kw name="Set To Dictionary" library="Collections">
+<doc>Adds the given ``key_value_pairs`` and ``items`` to the ``dictionary``.</doc>
+<arguments>
+<arg>${WorkItem}</arg>
+<arg>${LASTUPDATED_Q_FIELD}</arg>
+<arg>${date}</arg>
+</arguments>
+<status status="PASS" starttime="20200727 09:30:42.651" endtime="20200727 09:30:42.651"></status>
+</kw>
+<kw name="Set To Dictionary" library="Collections">
+<doc>Adds the given ``key_value_pairs`` and ``items`` to the ``dictionary``.</doc>
+<arguments>
+<arg>${WorkItem}</arg>
+<arg>${EXCEPTIONREASON_Q_FIELD}</arg>
+<arg>${ExceptionCause}</arg>
+</arguments>
+<status status="PASS" starttime="20200727 09:30:42.651" endtime="20200727 09:30:42.652"></status>
+</kw>
+<kw name="Save Work Item" library="RPA.Robocloud.Items">
+<doc>Save the current data in the work item. If not saved,
+all changes are discarded when the library goes out of scope.</doc>
+<status status="PASS" starttime="20200727 09:30:42.652" endtime="20200727 09:30:42.659"></status>
+</kw>
+<status status="PASS" starttime="20200727 09:30:42.649" endtime="20200727 09:30:42.659"></status>
+</kw>
+<status status="PASS" starttime="20200727 09:30:42.648" endtime="20200727 09:30:42.659"></status>
+</kw>
+<status status="PASS" starttime="20200727 09:30:42.648" endtime="20200727 09:30:42.660"></status>
+</kw>
+<kw name="Run Keyword If" library="BuiltIn">
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<arguments>
+<arg>"${WorkItem["${STATUS_Q_FIELD}"]}"=="${Q_STATUS_OPEN}"</arg>
+<arg>Run Keyword And Return Status</arg>
+<arg>Create PDF file for invitation</arg>
+<arg>${WorkItem}</arg>
+</arguments>
+<assign>
+<var>${Passed}</var>
+</assign>
+<msg timestamp="20200727 09:30:42.660" level="INFO">${Passed} = None</msg>
+<status status="PASS" starttime="20200727 09:30:42.660" endtime="20200727 09:30:42.660"></status>
+</kw>
+<kw name="Run Keyword If" library="BuiltIn">
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<arguments>
+<arg>${Passed}==True</arg>
+<arg>Mark Completed</arg>
+<arg>${WorkItem}</arg>
+</arguments>
+<status status="PASS" starttime="20200727 09:30:42.660" endtime="20200727 09:30:42.661"></status>
+</kw>
+<kw name="Run Keyword If" library="BuiltIn">
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<arguments>
+<arg>${Passed}==False</arg>
+<arg>Mark Exception</arg>
+<arg>${WorkItem}</arg>
+<arg>Work Item Execution Exception.</arg>
+</arguments>
+<status status="PASS" starttime="20200727 09:30:42.661" endtime="20200727 09:30:42.661"></status>
+</kw>
+<status status="PASS" starttime="20200727 09:30:42.648" endtime="20200727 09:30:42.661"></status>
+</kw>
+<kw name="${WorkItem} = {'first_name': 'Maridel', 'last_name': 'Sneezum', 'address': '4 Cambridge Center', 'city': 'London', 'date': '2020/03/26', 'time': '11:24 AM', 'Status': 'OPEN', 'ItemID': 'Maridel_Sneezum', 'CreatedTi..." type="foritem">
+<kw name="validate Item Data" library="keywords">
+<arguments>
+<arg>${WorkItem}</arg>
+</arguments>
+<kw name="Run Keyword If" library="BuiltIn">
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<arguments>
+<arg>'${WorkItem["first_name"]}'=='None'</arg>
+<arg>Mark Exception</arg>
+<arg>${WorkItem}</arg>
+<arg>Data Validation Exception.</arg>
+</arguments>
+<status status="PASS" starttime="20200727 09:30:42.662" endtime="20200727 09:30:42.662"></status>
+</kw>
+<status status="PASS" starttime="20200727 09:30:42.661" endtime="20200727 09:30:42.662"></status>
+</kw>
+<kw name="Run Keyword If" library="BuiltIn">
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<arguments>
+<arg>"${WorkItem["${STATUS_Q_FIELD}"]}"=="${Q_STATUS_OPEN}"</arg>
+<arg>Run Keyword And Return Status</arg>
+<arg>Create PDF file for invitation</arg>
+<arg>${WorkItem}</arg>
+</arguments>
+<assign>
+<var>${Passed}</var>
+</assign>
+<kw name="Run Keyword And Return Status" library="BuiltIn">
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<arguments>
+<arg>Create PDF file for invitation</arg>
+<arg>${WorkItem}</arg>
+</arguments>
+<kw name="Create PDF file for invitation" library="keywords">
+<arguments>
+<arg>${WorkItem}</arg>
+</arguments>
+<kw name="Template Html To Pdf" library="RPA.PDF">
+<doc>Use HTML template file to generate PDF file.</doc>
+<arguments>
+<arg>${PDF_TEMPLATE_PATH}</arg>
+<arg>${PDF_TEMP_OUTPUT_DIRECTORY}/${WorkItem["first_name"]}_${WorkItem["last_name"]}.pdf</arg>
+<arg>${WorkItem}</arg>
+</arguments>
+<status status="PASS" starttime="20200727 09:30:42.663" endtime="20200727 09:30:42.665"></status>
+</kw>
+<status status="PASS" starttime="20200727 09:30:42.663" endtime="20200727 09:30:42.666"></status>
+</kw>
+<status status="PASS" starttime="20200727 09:30:42.663" endtime="20200727 09:30:42.666"></status>
+</kw>
+<msg timestamp="20200727 09:30:42.666" level="INFO">${Passed} = True</msg>
+<status status="PASS" starttime="20200727 09:30:42.662" endtime="20200727 09:30:42.666"></status>
+</kw>
+<kw name="Run Keyword If" library="BuiltIn">
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<arguments>
+<arg>${Passed}==True</arg>
+<arg>Mark Completed</arg>
+<arg>${WorkItem}</arg>
+</arguments>
+<kw name="Mark Completed" library="QueueOperations">
+<arguments>
+<arg>${WorkItem}</arg>
+</arguments>
+<kw name="Get Current Date" library="DateTime">
+<doc>Returns current local or UTC time with an optional increment.</doc>
+<arguments>
+<arg>UTC</arg>
+<arg>exclude_millis=yes</arg>
+</arguments>
+<assign>
+<var>${date}</var>
+</assign>
+<msg timestamp="20200727 09:30:42.667" level="INFO">${date} = 2020-07-27 04:00:43</msg>
+<status status="PASS" starttime="20200727 09:30:42.667" endtime="20200727 09:30:42.667"></status>
+</kw>
+<kw name="Set To Dictionary" library="Collections">
+<doc>Adds the given ``key_value_pairs`` and ``items`` to the ``dictionary``.</doc>
+<arguments>
+<arg>${WorkItem}</arg>
+<arg>${STATUS_Q_FIELD}</arg>
+<arg>${Q_STATUS_COMPLETED}</arg>
+</arguments>
+<status status="PASS" starttime="20200727 09:30:42.667" endtime="20200727 09:30:42.667"></status>
+</kw>
+<kw name="Set To Dictionary" library="Collections">
+<doc>Adds the given ``key_value_pairs`` and ``items`` to the ``dictionary``.</doc>
+<arguments>
+<arg>${WorkItem}</arg>
+<arg>${LASTUPDATED_Q_FIELD}</arg>
+<arg>${date}</arg>
+</arguments>
+<status status="PASS" starttime="20200727 09:30:42.668" endtime="20200727 09:30:42.668"></status>
+</kw>
+<kw name="Save Work Item" library="RPA.Robocloud.Items">
+<doc>Save the current data in the work item. If not saved,
+all changes are discarded when the library goes out of scope.</doc>
+<status status="PASS" starttime="20200727 09:30:42.668" endtime="20200727 09:30:42.673"></status>
+</kw>
+<status status="PASS" starttime="20200727 09:30:42.666" endtime="20200727 09:30:42.674"></status>
+</kw>
+<status status="PASS" starttime="20200727 09:30:42.666" endtime="20200727 09:30:42.674"></status>
+</kw>
+<kw name="Run Keyword If" library="BuiltIn">
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<arguments>
+<arg>${Passed}==False</arg>
+<arg>Mark Exception</arg>
+<arg>${WorkItem}</arg>
+<arg>Work Item Execution Exception.</arg>
+</arguments>
+<status status="PASS" starttime="20200727 09:30:42.674" endtime="20200727 09:30:42.674"></status>
+</kw>
+<status status="PASS" starttime="20200727 09:30:42.661" endtime="20200727 09:30:42.674"></status>
+</kw>
+<status status="PASS" starttime="20200727 09:30:42.518" endtime="20200727 09:30:42.674"></status>
+</kw>
+<kw name="Create ZIP package from PDF files" library="keywords">
+<kw name="Set Variable" library="BuiltIn">
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<arguments>
+<arg>${OUTPUT_DIRECTORY}/PDFs.zip</arg>
+</arguments>
+<assign>
+<var>${zip_file_name}</var>
+</assign>
+<msg timestamp="20200727 09:30:42.675" level="INFO">${zip_file_name} = C:\Personal Data\Robot Framework\workspace\Robot Framework Template Project\output/PDFs.zip</msg>
+<status status="PASS" starttime="20200727 09:30:42.675" endtime="20200727 09:30:42.675"></status>
+</kw>
+<kw name="Create Zip From Files In Directory" library="ArchiveLibrary">
+<doc>Take all files in a directory and create a zip package from them</doc>
+<arguments>
+<arg>${PDF_TEMP_OUTPUT_DIRECTORY}</arg>
+<arg>${zip_file_name}</arg>
+</arguments>
+<status status="PASS" starttime="20200727 09:30:42.675" endtime="20200727 09:30:42.723"></status>
+</kw>
+<status status="PASS" starttime="20200727 09:30:42.674" endtime="20200727 09:30:42.723"></status>
+</kw>
+<kw name="Cleanup temporary PDF directory" library="keywords" type="teardown">
+<kw name="Remove Directory" library="OperatingSystem">
+<doc>Removes the directory pointed to by the given ``path``.</doc>
+<arguments>
+<arg>${PDF_TEMP_OUTPUT_DIRECTORY}</arg>
+<arg>True</arg>
+</arguments>
+<msg timestamp="20200727 09:30:42.727" level="INFO" html="yes">Removed directory '&lt;a href="file://C:\Personal Data\Robot Framework\workspace\Robot Framework Template Project\output\pdf"&gt;C:\Personal Data\Robot Framework\workspace\Robot Framework Template Project\output\pdf&lt;/a&gt;'.</msg>
+<status status="PASS" starttime="20200727 09:30:42.724" endtime="20200727 09:30:42.727"></status>
+</kw>
+<status status="PASS" starttime="20200727 09:30:42.724" endtime="20200727 09:30:42.727"></status>
+</kw>
+<status status="PASS" starttime="20200727 09:30:42.518" endtime="20200727 09:30:42.728"></status>
+</kw>
+<status status="PASS" starttime="20200727 09:30:42.508" endtime="20200727 09:30:42.728" critical="yes"></status>
+</test>
+<doc>Excel reader robot. Reads information from a given Excel file and
+adds it to the work item.</doc>
+<status status="PASS" starttime="20200727 09:30:38.779" endtime="20200727 09:30:42.729"></status>
+</suite>
+<status status="PASS" starttime="20200727 09:30:38.758" endtime="20200727 09:30:42.730"></status>
+</suite>
+<statistics>
+<total>
+<stat pass="2" fail="0">Critical Tasks</stat>
+<stat pass="2" fail="0">All Tasks</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="2" fail="0" id="s1" name="Tasks">Tasks</stat>
+<stat pass="2" fail="0" id="s1-s1" name="Robot">Tasks.Robot</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
